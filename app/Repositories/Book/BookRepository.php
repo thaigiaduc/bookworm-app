@@ -59,7 +59,7 @@ class BookRepository
     {
         $books = Book::select('book.id','category_id','author_id','book_title','book_summary','book_price','book_cover_photo')
         ->selectRaw('book.book_price - discount.discount_price as sub_price')
-        ->join('discount','discount.book_id','=','book.id')
+        ->leftjoin('discount','discount.book_id','=','book.id')
         ->orderBy('sub_price','desc')->paginate(10);
         return new BookCollection($books);
     }
@@ -138,13 +138,13 @@ class BookRepository
         switch($request->sortby) {
             case 'onsale':
                 $books->selectRaw('book.book_price - discount.discount_price as sub_price')
-                ->orderBy('sub_price', 'desc')
+                ->orderBy('sub_price','desc')
                 ->orderBy('final_price','asc')
                 ->groupBy('book.id','discount.discount_end_date','discount.discount_start_date','discount.discount_price');
                 break;
             case 'popularity':
                 $books->selectRaw('count(review.book_id) as num_review')
-                ->join('review','review.book_id','=','book.id')
+                ->leftjoin('review','review.book_id','=','book.id')
                 ->orderBy('num_review', 'desc')
                 ->orderBy('final_price','asc')
                 ->groupBy('book.id','discount.discount_end_date','discount.discount_start_date','discount.discount_price');

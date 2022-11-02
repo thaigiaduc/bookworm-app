@@ -33,9 +33,9 @@ class ReviewRepository
         $review_data = Review::select('book_id','review_title','review_details','review_date','rating_start')->where('review.book_id',$id)
         ->when($request->has('rating_start'), function($query) use ($request){
             $query->where('rating_start',$request->rating_start)->get();
-        })->when($request->has('sortby_day') == 'newest', function($query) use ($request){
+        })->when($request->sortbyday == 'asc' , function($query) use ($request){
             $query->where('book_id', $request->id)->orderBy('review_date','desc')->get();
-        })->when($request->has('sortby_day') == 'oldest', function($query) use ($request){
+        })->when($request->sortbyday == 'asc', function($query) use ($request){
             $query->where('book_id', $request->id)->orderBy('review_date','asc')->get();
         });
 
