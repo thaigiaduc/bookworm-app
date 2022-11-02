@@ -5,6 +5,7 @@ import {Container, Button, Row, Col, Card, Dropdown, Form} from 'react-bootstrap
 import '../App.css';
 import ReactPaginate from 'react-paginate';
 import { useParams, useNavigate } from 'react-router-dom';
+import queryString from 'query-string';
 function Product() {
   const id = useParams();
 
@@ -23,7 +24,13 @@ function Product() {
   const [quantity, setQuantity] = useState(1);
   // paginate
   const [currentItems, setCurrentItems] = useState(null);
-    const [itemOffset, setItemOffset] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const [titleDay, setTitleDay] = useState("Sort by Date: newest to oldest");
+  const [filter, setFilter] = useState({
+    sortbyday: 'newest',
+    page : 1
+  })
+  const [titleSort, setTitleSort] = useState("Sort by on sale");
   const navigate = useNavigate();
   const url = window.location.pathname;
   let reviewUrl = "/product"+"/review/";
@@ -31,6 +38,9 @@ function Product() {
     reviewUrl += id[x];
   }
   useEffect(() => {
+    const queryParams = queryString.stringify(filter);
+    const test = `http://localhost:8000/api${url}`; 
+    console.log(test);
     axios.get(`http://localhost:8000/api${url}`)
     .then(res => {
       setProductDetails(res.data.data);
@@ -38,7 +48,7 @@ function Product() {
     })
     .catch(error => navigate('/product'));
 
-    axios.get(`http://localhost:8000/api${reviewUrl}`)
+    axios.get(`http://localhost:8000/api${reviewUrl}?${queryParams}`)
     .then(res => {
       setReviewDetails(res.data.data);
       setTotal(res.data.total);
@@ -48,7 +58,7 @@ function Product() {
       setFrom(res.data.from);
     })
     .catch(error => console.log(error));
-}, [itemOffset]);
+}, [filter,itemOffset]);
 
   const CardItemProduct = props => {
     return (
@@ -62,7 +72,7 @@ function Product() {
               <Card.Body>
                 <Row>
                   <Col xs lg={3}>
-                    <Card.Img variant="top" src={props.book_cover_photo === null || props.book_cover_photo === 'null' ? "../images/bookCover.jpg" : "../images/"+props.book_cover_photo+".jpg"} />
+                    <Card.Img variant="top" src={props.book_cover_photo === null || props.book_cover_photo === 'null' ? "../assets/bookcover/bookCover.jpg" : "../assets/bookcover/"+props.book_cover_photo+".jpg"} />
                   </Col>
                   <Col xs lg={8}>
                     <Card.Title>{props.book_title}</Card.Title>
@@ -162,24 +172,38 @@ function Product() {
                 </Row>
                 <Row>
                   <Col xs lg={11}>
-                    <Card.Text>.....</Card.Text>
+                    <Card.Text>
+                        <u style={{paddingRight: "15px"}}>({total})</u>     
+                        <u>5 star ()</u> | <u>4 star () </u> | <u>3 star ()</u> | <u>2 star ()</u> | <u>1 star ()</u></Card.Text>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs lg={4}>
-                    <Card.Text>Showing 1-12 of 314 reviews</Card.Text>
+                    <Card.Text>Showing {from}-{to} of {total} reviews</Card.Text>
                   </Col>
-                  <Col xs lg={2}>
+                  <Col xs lg={2} style={{width: "auto"}}>
                     <Dropdown>
                       <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-                        test
+                        {titleDay}
                       </Dropdown.Toggle>
                       <Dropdown.Menu variant="light">
-                        <Dropdown.Item >
-                          Sort by on sale
+                        <Dropdown.Item 
+                            onClick = {() => (
+                                setFilter({...filter, page: 1, sortbyday: 'asc'}),
+                                setTitleSort("Sort by Date: newest to oldest"),
+                                setCurrentItems(0)
+                            )}
+                        >
+                            Sort by Date: newest to oldest
                         </Dropdown.Item>
-                        <Dropdown.Item >
-                          Sort by popularity
+                        <Dropdown.Item 
+                            onClick = {() => (
+                                setFilter({...filter, page: 1,sortbyday: 'desc'}),
+                                setTitleSort("Sort by Date: oldest to newest"),
+                                setCurrentItems(0)
+                            )}
+                        >
+                            Sort by Date: oldest to newest
                         </Dropdown.Item>
                               
                       </Dropdown.Menu>
@@ -188,14 +212,40 @@ function Product() {
                   <Col xs lg={2}>
                     <Dropdown>
                       <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-                        test
+                        Show {perPage}
                       </Dropdown.Toggle>
                       <Dropdown.Menu variant="light">
-                        <Dropdown.Item >
-                          Sort by on sale
+                        <Dropdown.Item 
+                            onClick = {() => (
+                                setFilter({...filter, page: 1,item_per_page: 5}),
+                                setCurrentItems(0)
+                            )}
+                        >
+                          Show 5
                         </Dropdown.Item>
-                        <Dropdown.Item >
-                          Sort by popularity
+                        <Dropdown.Item 
+                            onClick = {() => (
+                                setFilter({...filter, page: 1,item_per_page: 15}),
+                                setCurrentItems(0)
+                            )}
+                        >
+                          Show 15
+                        </Dropdown.Item>
+                        <Dropdown.Item 
+                            onClick = {() => (
+                                setFilter({...filter, page: 1,item_per_page: 20}),
+                                setCurrentItems(0)
+                            )}
+                        >
+                          Show 20
+                        </Dropdown.Item>
+                        <Dropdown.Item 
+                            onClick = {() => (
+                                setFilter({...filter, page: 1,item_per_page: 25}),
+                                setCurrentItems(0)
+                            )}
+                        >
+                          Show 25
                         </Dropdown.Item>
                               
                       </Dropdown.Menu>
@@ -226,9 +276,10 @@ function Product() {
                                 nextPageRel="null"
                                 onPageChange={(event) => (
                                     setItemOffset((event.selected * perPage) % lastPage),
-                                    setCurrentItems(event.selected )
+                                    setFilter({...filter, page: event.selected + 1}),
+                                    setCurrentItems(event.selected)
                                 )}
-                                pageRangeDisplayed={5}
+                                
                                 pageCount={lastPage}
                                 pageClassName={'page-item'}
                                 pageLinkClassName={'page-link'}

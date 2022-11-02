@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import queryString from 'query-string';
-import {Container, Row, Col, Button, ButtonGroup, Card, ListGroup, Pagination, Accordion, Dropdown} from 'react-bootstrap';
+import {Container, Row, Col, Card, ListGroup, Pagination, Accordion, Dropdown} from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 import '../App.css';
 
@@ -279,7 +279,7 @@ function Shop() {
             </Row>
 
             <Row className="justify-content-md-center" style={{paddingTop: "20px"}}>
-                {/* <Col xs lg={2}>
+                <Col xs lg={2}>
                     <Accordion>
                         <Row style={{paddingBottom: "30px"}}>
                             <Col>
@@ -336,7 +336,7 @@ function Shop() {
                             </Col>
                         </Row>
                     </Accordion>
-                </Col> */}
+                </Col>
 
                 <Col xs lg={9}>
                     <Row className="justify-content-md-center">
