@@ -68,8 +68,8 @@ function Shop() {
     
     const CardItem = props => {
         return (
-            <Col xs lg={3}>
-                <Card style={{ width: '16rem', height: "450px", margin: "10px 0px 10px 0px", boxShadow: "5px 5px #DDDDDD" }} onClick={ () =>(navigate(`/product/${props.book_id}`)) }>
+            <Col xs lg={3} style={{width: "auto"}}>
+                <Card style={{ width: '16rem', height: "450px", margin: "10px 0px 10px 30px", boxShadow: "5px 5px #DDDDDD" }} onClick={ () =>(navigate(`/product/${props.book_id}`)) }>
                     <Card.Img variant="top" src={props.book_cover_photo === null || props.book_cover_photo === 'null' ? "../assets/bookcover/bookCover.jpg" : "../assets/bookcover/"+props.book_cover_photo+".jpg" } height="300px" width="300px"/>
                     <Card.Body>
                         <Card.Title>{props.book_title.slice(0,30)+"..."}</Card.Title>

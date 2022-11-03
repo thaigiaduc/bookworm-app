@@ -27,12 +27,9 @@ class ReviewController extends Controller
     {
         try {
             $review = $this->reivewRepo->sortReview($request,$id);
-            return response()->json($review,200);
+            return response()->json(new ReviewCollection($review),200);
         } catch(\Exception $e) {
-            return response()->json([
-                'message'=>$e->getMessage(),
-                'status_code'=>404
-            ]);
+            return response()->json($e->getMessage(),404);
         } 
     }
 

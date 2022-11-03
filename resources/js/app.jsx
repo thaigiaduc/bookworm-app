@@ -5,9 +5,10 @@ import { Routes, Route, HashRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Home from './pages/Home';
-import Shop from './pages/Shop';
-import About from './pages/About';
+import HomePage from './pages/Home';
+import ShopPage from './pages/Shop';
+import AboutPage from './pages/About';
+import CartPage from './pages/Cart';
 import ProductPage from './pages/Product'
 import ErrorPage from './pages/Error';
 import Header from './layouts/Header';
@@ -20,11 +21,12 @@ ReactDOM.render(
       <Header />
       <div className="App-content">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/shop" element={<Shop />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/shop" element={<ShopPage />} />
           <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/cart" element={<CartPage />}/>
           <Route path="/*" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>

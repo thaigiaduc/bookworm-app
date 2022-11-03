@@ -26,7 +26,7 @@ class BookController extends Controller
     {
         try {
             $books = $this->bookRepo->getfilterAndSort($request);
-            return response()->json($books,200);
+            return response()->json(new BookCollection($books),200);
         } catch(\Exception $e) {
             return response()->json($e->getMessage(),400);
         }
@@ -37,7 +37,7 @@ class BookController extends Controller
     {
         try {
             $books = $this->bookRepo->getQueryBookDetails($id);
-            return response()->json($books,200);
+            return response()->json(new BookCollection($books),200);
         } catch(\Exception $e) {
             return response()->json($e->getMessage(),400);
         }
@@ -48,7 +48,7 @@ class BookController extends Controller
     {
         try {
             $books = $this->bookRepo->getQueryBookOnSale();
-            return response()->json($books, 200);
+            return response()->json(new BookCollection($books), 200);
         } catch(\Exception $e) {
             return response()->json($e->getMessage(),400);
         }
@@ -59,7 +59,7 @@ class BookController extends Controller
     {
         try {
             $books = $this->bookRepo->getQueryFeaturedBookRecommended();
-            return response()->json($books,200);
+            return response()->json(new BookCollection($books),200);
         } catch(\Exception $e) {
             return response()->json($e->getMessage(),400);
         }
@@ -70,7 +70,7 @@ class BookController extends Controller
     {
         try {
             $books = $this->bookRepo->getQueryFeaturedBookPopularity();
-            return response()->json($books,200);
+            return response()->json(new BookCollection($books),200);
         } catch(\Exception $e) {
             return response()->json($e->getMessage(),400);
         }

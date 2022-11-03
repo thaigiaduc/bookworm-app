@@ -60,8 +60,10 @@ class Book extends Model
 
     public static function getSubPrice($id)
     {
-        $books = Book::selectRaw('book.book_price - discount.discount_price as sub_price')
-        ->leftjoin('discount','discount.book_id','=','book.id')->where('book.id',$id)->get();
+        $books = Book::select('book.id','category_id','author_id','book_title','book_summary','book_price','book_cover_photo')
+        ->selectRaw('book.book_price - discount.discount_price as sub_price')
+        ->leftjoin('discount','discount.book_id','=','book.id')
+        ->where('book.id',$id)->get();
         $string = strval($books[0]);
         $test = '';
         for($i = 0 ; $i<strlen($string) ; $i++) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import {Container, Button, Row, Col, Card, Dropdown, Form} from 'react-bootstrap';
+import {Container, ButtonGroup, Button, Row, Col, Card, Dropdown, Form} from 'react-bootstrap';
 import '../App.css';
 import ReactPaginate from 'react-paginate';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -21,11 +21,12 @@ function Product() {
   const [from, setFrom] = useState(0);
   // trang cuối
   const [to, setTo] = useState(0);
-  const [quantity, setQuantity] = useState(1);
+  let [quantity, setQuantity] = useState(1);
   // paginate
   const [currentItems, setCurrentItems] = useState(null);
   const [itemOffset, setItemOffset] = useState(0);
   const [titleDay, setTitleDay] = useState("Sort by Date: newest to oldest");
+  const [titleRating, setTitleRating] = useState("");
   const [filter, setFilter] = useState({
     sortbyday: 'newest',
     page : 1
@@ -93,7 +94,7 @@ function Product() {
             <Card>
               <Card.Header>
                 {
-                  (props.book_price == props.final_price) ? <h2>{"$"+props.final_price}</h2> : <h2><del style={{marginRight: "10px"}}>{"$"+props.book_price}</del>{"$"+props.final_price}</h2>
+                  (props.book_price == props.final_price) ? <h2>{"$"+props.final_price}</h2> : <><del style={{marginRight: "10px", float: "left"}}>{"$"+props.book_price}</del><h2>{"$"+props.final_price}</h2></>
                 }
               </Card.Header>
               <Card.Body>
@@ -104,16 +105,16 @@ function Product() {
                     </Card.Text>
                     <Row className="justify-content-md-center text-center"> 
                       <Col xs lg={8}>
-                        <div style={{border: "1px solid"}}>
-                          <button style={{border: "none", fontSize: "20px"}} onClick = { () => (setQuantity(quantity-1)) }><i className="fas fa-minus"></i></button>
-                          <span style={{fontSize: "20px"}}>{quantity} </span>
-                          <button style={{border: "none", fontSize: "20px"}} onClick = { () => (setQuantity(quantity+1)) }><i className="fas fa-plus"></i></button>
-                        </div>
+                        <ButtonGroup style={{backgroundColor: "#f8f9fa"}}>
+                            <Button variant='light' style={{border: "none", fontSize: "20px", margin: "0px 80px 0px 0px"}} onClick = { () => (setQuantity(quantity-1)) }><i className="fas fa-minus"></i></Button>
+                            <span style={{fontSize: "20px"}}>{(quantity > 8 ? quantity = 8 : quantity < 1 ? quantity = 1 : quantity )}</span>
+                            <Button variant='light' style={{border: "none", fontSize: "20px", margin: "0px 0px 0px 80px"}} onClick = { () => (setQuantity(quantity+1)) }><i className="fas fa-plus"></i></Button>
+                        </ButtonGroup>     
                       </Col>
                     </Row>
-                    <Row className="justify-content-md-center text-center">
+                    <Row className="justify-content-md-center text-center" style={{padding: "10px 0px 0px 0px"}}>
                       <Col xs lg={8}>
-                        <button>Add to cart</button>
+                        <Button variant='light' style={{width: "260px"}} onClick = {() => handleAddToCart(props.book_id ,props.book_cover_photo, props.final_price, quantity, quantity*props.final_price, props.book_title, props.author_name)}>Add to cart</Button>
                       </Col>
                     </Row>                  
                   </Col>
@@ -126,6 +127,20 @@ function Product() {
       </React.Fragment>
       
     );
+  }
+
+  const handleAddToCart = (bookID,bookImg, bookPrice, bookQuantity, bookTotal, bookTitle, bookAuthorName) => {
+    if(localStorage.getItem('cart') === null) {
+      var cartArray = [];
+      localStorage.setItem('cart',JSON.stringify(cartArray));
+    } 
+    console.log(cartArray);
+    var total = bookTotal.toFixed(2);
+    cartArray = JSON.parse(localStorage.getItem('cart'));
+    var tam = {'book_id': bookID,'book_cover_photo': bookImg, 'book_price': bookPrice, 'book_quantity': bookQuantity, 'book_total': total, 'book_title': bookTitle, 'book_author': bookAuthorName};
+    cartArray.push(tam);
+    localStorage.setItem('cart',JSON.stringify(cartArray));
+    return alert("success");
   }
 
   const ReviewProductDetails = props => {
@@ -161,7 +176,7 @@ function Product() {
               <Card.Body>
                 <Row>
                   <Col xs lg={5}>
-                    <Card.Title>Customer Review (filtered by 5 star)</Card.Title>
+                    <Card.Title>Customer Review ({titleRating})</Card.Title>
                   </Col>
                   <Col xs lg={6}></Col>
                 </Row>
@@ -174,7 +189,52 @@ function Product() {
                   <Col xs lg={11}>
                     <Card.Text>
                         <u style={{paddingRight: "15px"}}>({total})</u>     
-                        <u>5 star ()</u> | <u>4 star () </u> | <u>3 star ()</u> | <u>2 star ()</u> | <u>1 star ()</u></Card.Text>
+                        <Button variant="light"
+                          onClick = {() => (
+                            setFilter({...filter, page: 1, rating_start: 5}),
+                            setTitleSort("filtered by 5 star"),
+                            setCurrentItems(0)
+                          )}
+                        >
+                          <u>5 star ()</u>
+                        </Button> | 
+                        <Button variant="light"
+                          onClick = {() => (
+                            setFilter({...filter, page: 1, rating_start: 4}),
+                            setTitleSort("filtered by 4 star"),
+                            setCurrentItems(0)
+                          )}
+                        >
+                          <u>4 star () </u>
+                        </Button> | 
+                        <Button variant="light"
+                          onClick = {() => (
+                            setFilter({...filter, page: 1, rating_start: 3}),
+                            setTitleSort("filtered by 3 star"),
+                            setCurrentItems(0)
+                          )}
+                        >
+                          <u>3 star ()</u>
+                        </Button> | 
+                        <Button variant="light"
+                          onClick = {() => (
+                            setFilter({...filter, page: 1, rating_start: 2}),
+                            setTitleSort("filtered by 2 star"),
+                            setCurrentItems(0)
+                          )}
+                        >
+                          <u>2 star ()</u>
+                        </Button> | 
+                        <Button variant="light"
+                          onClick = {() => (
+                            setFilter({...filter, page: 1, rating_start: 1}),
+                            setTitleSort("filtered by 1 star"),
+                            setCurrentItems(0)
+                          )}
+                        >
+                          <u>1 star ()</u>
+                        </Button>
+                        </Card.Text>
                   </Col>
                 </Row>
                 <Row>
@@ -348,18 +408,150 @@ function Product() {
             <Card>
               <Card.Body>
                 <Row>
+                  <Col xs lg={5}>
+                    <Card.Title>Customer Review ({titleRating})</Card.Title>
+                  </Col>
+                  <Col xs lg={6}></Col>
+                </Row>
+                <Row>
                   <Col xs lg={11}>
-                    <Card.Title>Customer Review (filtered by 5 star)</Card.Title>
+                    <Card.Text>{ratingStart} Star</Card.Text>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs lg={11}>
-                    
-                    <h1>Not review yet!</h1> 
-                    
+                    <Card.Text>
+                        <u style={{paddingRight: "15px"}}>({total})</u>     
+                        <Button variant="light"
+                          onClick = {() => (
+                            setFilter({...filter, page: 1, rating_start: 5}),
+                            setTitleSort("filtered by 5 star"),
+                            setCurrentItems(0)
+                          )}
+                        >
+                          <u>5 star ()</u>
+                        </Button> | 
+                        <Button variant="light"
+                          onClick = {() => (
+                            setFilter({...filter, page: 1, rating_start: 4}),
+                            setTitleSort("filtered by 4 star"),
+                            setCurrentItems(0)
+                          )}
+                        >
+                          <u>4 star () </u>
+                        </Button> | 
+                        <Button variant="light"
+                          onClick = {() => (
+                            setFilter({...filter, page: 1, rating_start: 3}),
+                            setTitleSort("filtered by 3 star"),
+                            setCurrentItems(0)
+                          )}
+                        >
+                          <u>3 star ()</u>
+                        </Button> | 
+                        <Button variant="light"
+                          onClick = {() => (
+                            setFilter({...filter, page: 1, rating_start: 2}),
+                            setTitleSort("filtered by 2 star"),
+                            setCurrentItems(0)
+                          )}
+                        >
+                          <u>2 star ()</u>
+                        </Button> | 
+                        <Button variant="light"
+                          onClick = {() => (
+                            setFilter({...filter, page: 1, rating_start: 1}),
+                            setTitleSort("filtered by 1 star"),
+                            setCurrentItems(0)
+                          )}
+                        >
+                          <u>1 star ()</u>
+                        </Button>
+                        </Card.Text>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs lg={4}>
+                    <Card.Text>Showing {from}-{to} of {total} reviews</Card.Text>
+                  </Col>
+                  <Col xs lg={2} style={{width: "auto"}}>
+                    <Dropdown>
+                      <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                        {titleDay}
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu variant="light">
+                        <Dropdown.Item 
+                            onClick = {() => (
+                                setFilter({...filter, page: 1, sortbyday: 'asc'}),
+                                setTitleSort("Sort by Date: newest to oldest"),
+                                setCurrentItems(0)
+                            )}
+                        >
+                            Sort by Date: newest to oldest
+                        </Dropdown.Item>
+                        <Dropdown.Item 
+                            onClick = {() => (
+                                setFilter({...filter, page: 1,sortbyday: 'desc'}),
+                                setTitleSort("Sort by Date: oldest to newest"),
+                                setCurrentItems(0)
+                            )}
+                        >
+                            Sort by Date: oldest to newest
+                        </Dropdown.Item>
+                              
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Col>
+                  <Col xs lg={2}>
+                    <Dropdown>
+                      <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                        Show {perPage}
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu variant="light">
+                        <Dropdown.Item 
+                            onClick = {() => (
+                                setFilter({...filter, page: 1,item_per_page: 5}),
+                                setCurrentItems(0)
+                            )}
+                        >
+                          Show 5
+                        </Dropdown.Item>
+                        <Dropdown.Item 
+                            onClick = {() => (
+                                setFilter({...filter, page: 1,item_per_page: 15}),
+                                setCurrentItems(0)
+                            )}
+                        >
+                          Show 15
+                        </Dropdown.Item>
+                        <Dropdown.Item 
+                            onClick = {() => (
+                                setFilter({...filter, page: 1,item_per_page: 20}),
+                                setCurrentItems(0)
+                            )}
+                        >
+                          Show 20
+                        </Dropdown.Item>
+                        <Dropdown.Item 
+                            onClick = {() => (
+                                setFilter({...filter, page: 1,item_per_page: 25}),
+                                setCurrentItems(0)
+                            )}
+                        >
+                          Show 25
+                        </Dropdown.Item>
+                              
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </Col>
                 </Row>
               </Card.Body>
+                <Row>
+                  <Col>
+                    <h2>Not review yet !</h2>
+                    
+                  </Col>
+                </Row>
             </Card>
           </Col>
           
@@ -405,6 +597,7 @@ function Product() {
         {
           productDetails.map((item,index) => (
             <CardItemProduct
+              book_id = {item.id}
               author_name = {item.author_name}
               book_title = {item.book_title}
               book_summary = {item.book_summary}
