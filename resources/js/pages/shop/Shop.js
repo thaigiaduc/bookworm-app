@@ -5,7 +5,8 @@ import {useState, useEffect} from 'react';
 import queryString from 'query-string';
 import {Container, Row, Col, Card, ListGroup, Pagination, Accordion, Dropdown} from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
-import '../App.css';
+import shopAPI from '../../services/shopAPI';
+import '../../App.css';
 
 function Shop() {
     // set all book
@@ -41,28 +42,25 @@ function Shop() {
     const navigate = useNavigate();
     useEffect(() => {
         const queryParams = queryString.stringify(filter);
-        axios.get(`http://localhost:8000/api/shop?${queryParams}`)
-        .then(res => {
-            setAllBook(res.data.data);
-            setTotal(res.data.total);
-            setPerPage(res.data.per_page);
-            setLastPage(res.data.last_page);
-            setTo(res.data.to);
-            setFrom(res.data.from);
-        })
-        .catch(error => console.log(error));
+        const shop = async () => {
+            try {
+                const a = await shopAPI.getBookFilter(queryParams);
+                const b = await shopAPI.getCategory();
+                const c = await shopAPI.getAuthor();
+                setAllBook(a.data);
+                setTotal(a.total);
+                setPerPage(a.per_page);
+                setLastPage(a.last_page);
+                setTo(a.to);
+                setFrom(a.from);
+                setCategory(b.data);
+                setAuthor(c.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        shop();
 
-        axios.get('http://localhost:8000/api/shop/category')
-        .then(res => {
-            setCategory(res.data.data);
-        })
-        .catch(error => console.log(error));
-
-        axios.get('http://localhost:8000/api/shop/author')
-        .then(res => {
-            setAuthor(res.data.data);
-        })
-        .catch(error => console.log(error));
     }, [filter, itemOffset]);
 
     
@@ -164,6 +162,22 @@ function Shop() {
                 </button>
             </Accordion.Body>
         );
+    }
+
+    function SpinLoading() {
+        return (
+            <Row className="justify-content-md-center text-center">
+                <Col xs lg={9}>
+                    <div className="spinner-border text-dark" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </Col>
+            </Row>
+        );
+    }
+
+    const ProductPack = () => {
+        
     }
 
     return (
@@ -339,9 +353,9 @@ function Shop() {
                 </Col>
 
                 <Col xs lg={9}>
-                    <Row className="justify-content-md-center">
+                    <Row>
                     {
-                        allBook.map(item => (
+                        allBook.length !== 0 ? allBook.map(item => (
                             <CardItem 
                                 book_id = {item.id}
                                 book_title = {item.book_title}
@@ -351,7 +365,7 @@ function Shop() {
                                 final_price = {item.final_price}
                                 key = {item.id}
                             />
-                        ))
+                        )) :  <SpinLoading />
                     }
                     </Row>
 

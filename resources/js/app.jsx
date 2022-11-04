@@ -4,16 +4,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import HomePage from './pages/Home';
-import ShopPage from './pages/Shop';
-import AboutPage from './pages/About';
-import CartPage from './pages/Cart';
-import ProductPage from './pages/Product'
+import HomePage from './pages/home/Home';
+import ShopPage from './pages/shop/Shop';
+import AboutPage from './pages/about/About';
+import CartPage from './pages/cart/Cart';
+import ProductPage from './pages/product/Product'
 import ErrorPage from './pages/Error';
 import Header from './layouts/Header';
 import Footer from './layouts/Footer';
-
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 ReactDOM.render(
   <Router>
@@ -30,7 +28,6 @@ ReactDOM.render(
           <Route path="/*" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
-          {/* <Route path="/cart" element={<CartPage />} /> */}
       </div>
       <Footer />
     </div>

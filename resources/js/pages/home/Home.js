@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import {Container, Button, Row, Col, Card, ToggleButtonGroup, ToggleButton, ListGroup} from 'react-bootstrap';
 import axios from 'axios';
 import {useState, useEffect} from 'react';
-import '../../css/App.css';
+import '../../App.css';
+import homeAPI from '../../services/homeAPI';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
@@ -35,24 +36,20 @@ function Home() {
     const [defaultBook, setDefaultBook] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {
-        axios.get('http://localhost:8000/api/home/sale')
-        .then(res => {
-            setBookOnSale(res.data.data);
-        })
-        .catch(error => console.log(error));
-
-        axios.get('http://localhost:8000/api/home/recommended')
-        .then(res => {
-            setBookRecommended(res.data.data);
-            setDefaultBook(res.data.data);
-        })
-        .catch(error => console.log(error));
-
-        axios.get('http://localhost:8000/api/home/popular')
-        .then(res => {
-            setBookPopular(res.data.data);
-        })
-        .catch(error => console.log(error));
+        const home = async () => {
+            try {
+                const onsale = await homeAPI.getBookOnSale();
+                const popular = await homeAPI.getBookPopular();
+                const recommend = await homeAPI.getBookRecommended();
+                setBookOnSale(onsale.data);
+                setBookRecommended(recommend.data);
+                setDefaultBook(recommend.data);
+                setBookPopular(popular.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        home();
     }, []);
 
     const CardItemCarousel = props => {

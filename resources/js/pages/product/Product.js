@@ -2,8 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import {Container, ButtonGroup, Button, Row, Col, Card, Dropdown, Form} from 'react-bootstrap';
-import '../App.css';
+import '../../App.css';
 import ReactPaginate from 'react-paginate';
+import productAPI from '../../services/productAPI';
 import { useParams, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
 function Product() {
@@ -40,25 +41,25 @@ function Product() {
   }
   useEffect(() => {
     const queryParams = queryString.stringify(filter);
-    const test = `http://localhost:8000/api${url}`; 
-    console.log(test);
-    axios.get(`http://localhost:8000/api${url}`)
-    .then(res => {
-      setProductDetails(res.data.data);
-      setRatingStart(res.data.data[0].avg_rating);
-    })
-    .catch(error => navigate('/product'));
+    const product = async () => {
+      try {
+          const a = await productAPI.getProductDetails(url);
+          const b = await productAPI.getReviewDetails(reviewUrl, queryParams);
+          setProductDetails(a.data);
+          setRatingStart(a.data[0].avg_rating);
 
-    axios.get(`http://localhost:8000/api${reviewUrl}?${queryParams}`)
-    .then(res => {
-      setReviewDetails(res.data.data);
-      setTotal(res.data.total);
-      setPerPage(res.data.per_page);
-      setLastPage(res.data.last_page);
-      setTo(res.data.to);
-      setFrom(res.data.from);
-    })
-    .catch(error => console.log(error));
+          setReviewDetails(b.data);
+          setTotal(b.total);
+          setPerPage(b.per_page);
+          setLastPage(b.last_page);
+          setTo(b.to);
+          setFrom(b.from);
+      } catch (error) {
+          error => navigate('/product');
+      }
+  }
+  product();
+    
 }, [filter,itemOffset]);
 
   const CardItemProduct = props => {
@@ -114,7 +115,7 @@ function Product() {
                     </Row>
                     <Row className="justify-content-md-center text-center" style={{padding: "10px 0px 0px 0px"}}>
                       <Col xs lg={8}>
-                        <Button variant='light' style={{width: "260px"}} onClick = {() => handleAddToCart(props.book_id ,props.book_cover_photo, props.final_price, quantity, quantity*props.final_price, props.book_title, props.author_name)}>Add to cart</Button>
+                        <Button variant='light' style={{width: "260px"}} onClick = {() => handleAddToCart(props.book_id ,props.book_cover_photo, props.final_price, quantity, props.book_title, props.author_name)}>Add to cart</Button>
                       </Col>
                     </Row>                  
                   </Col>
@@ -129,17 +130,29 @@ function Product() {
     );
   }
 
-  const handleAddToCart = (bookID,bookImg, bookPrice, bookQuantity, bookTotal, bookTitle, bookAuthorName) => {
+  const handleAddToCart = (bookID,bookImg, bookPrice, bookQuantity, bookTitle, bookAuthorName) => {
+    let cartArray = [];
     if(localStorage.getItem('cart') === null) {
-      var cartArray = [];
       localStorage.setItem('cart',JSON.stringify(cartArray));
     } 
-    console.log(cartArray);
-    var total = bookTotal.toFixed(2);
+
+    var flag = 0;
+    var tam = {'book_id': bookID,'book_cover_photo': bookImg, 'book_price': bookPrice, 'book_quantity': bookQuantity, 'book_title': bookTitle, 'book_author': bookAuthorName};
     cartArray = JSON.parse(localStorage.getItem('cart'));
-    var tam = {'book_id': bookID,'book_cover_photo': bookImg, 'book_price': bookPrice, 'book_quantity': bookQuantity, 'book_total': total, 'book_title': bookTitle, 'book_author': bookAuthorName};
-    cartArray.push(tam);
+    for(var i=0;i<cartArray.length;i++) {
+      if(cartArray[i].book_id == bookID) {
+        bookQuantity += cartArray[i].book_quantity;
+        cartArray[i].book_quantity = bookQuantity;
+        flag = 1;  
+      }
+    }   
+    
+    if(flag == 0) {
+      cartArray.push(tam);
+    } 
     localStorage.setItem('cart',JSON.stringify(cartArray));
+    setQuantity(quantity = 1);
+    
     return alert("success");
   }
 
@@ -412,139 +425,7 @@ function Product() {
                     <Card.Title>Customer Review ({titleRating})</Card.Title>
                   </Col>
                   <Col xs lg={6}></Col>
-                </Row>
-                <Row>
-                  <Col xs lg={11}>
-                    <Card.Text>{ratingStart} Star</Card.Text>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs lg={11}>
-                    <Card.Text>
-                        <u style={{paddingRight: "15px"}}>({total})</u>     
-                        <Button variant="light"
-                          onClick = {() => (
-                            setFilter({...filter, page: 1, rating_start: 5}),
-                            setTitleSort("filtered by 5 star"),
-                            setCurrentItems(0)
-                          )}
-                        >
-                          <u>5 star ()</u>
-                        </Button> | 
-                        <Button variant="light"
-                          onClick = {() => (
-                            setFilter({...filter, page: 1, rating_start: 4}),
-                            setTitleSort("filtered by 4 star"),
-                            setCurrentItems(0)
-                          )}
-                        >
-                          <u>4 star () </u>
-                        </Button> | 
-                        <Button variant="light"
-                          onClick = {() => (
-                            setFilter({...filter, page: 1, rating_start: 3}),
-                            setTitleSort("filtered by 3 star"),
-                            setCurrentItems(0)
-                          )}
-                        >
-                          <u>3 star ()</u>
-                        </Button> | 
-                        <Button variant="light"
-                          onClick = {() => (
-                            setFilter({...filter, page: 1, rating_start: 2}),
-                            setTitleSort("filtered by 2 star"),
-                            setCurrentItems(0)
-                          )}
-                        >
-                          <u>2 star ()</u>
-                        </Button> | 
-                        <Button variant="light"
-                          onClick = {() => (
-                            setFilter({...filter, page: 1, rating_start: 1}),
-                            setTitleSort("filtered by 1 star"),
-                            setCurrentItems(0)
-                          )}
-                        >
-                          <u>1 star ()</u>
-                        </Button>
-                        </Card.Text>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs lg={4}>
-                    <Card.Text>Showing {from}-{to} of {total} reviews</Card.Text>
-                  </Col>
-                  <Col xs lg={2} style={{width: "auto"}}>
-                    <Dropdown>
-                      <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-                        {titleDay}
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu variant="light">
-                        <Dropdown.Item 
-                            onClick = {() => (
-                                setFilter({...filter, page: 1, sortbyday: 'asc'}),
-                                setTitleSort("Sort by Date: newest to oldest"),
-                                setCurrentItems(0)
-                            )}
-                        >
-                            Sort by Date: newest to oldest
-                        </Dropdown.Item>
-                        <Dropdown.Item 
-                            onClick = {() => (
-                                setFilter({...filter, page: 1,sortbyday: 'desc'}),
-                                setTitleSort("Sort by Date: oldest to newest"),
-                                setCurrentItems(0)
-                            )}
-                        >
-                            Sort by Date: oldest to newest
-                        </Dropdown.Item>
-                              
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </Col>
-                  <Col xs lg={2}>
-                    <Dropdown>
-                      <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-                        Show {perPage}
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu variant="light">
-                        <Dropdown.Item 
-                            onClick = {() => (
-                                setFilter({...filter, page: 1,item_per_page: 5}),
-                                setCurrentItems(0)
-                            )}
-                        >
-                          Show 5
-                        </Dropdown.Item>
-                        <Dropdown.Item 
-                            onClick = {() => (
-                                setFilter({...filter, page: 1,item_per_page: 15}),
-                                setCurrentItems(0)
-                            )}
-                        >
-                          Show 15
-                        </Dropdown.Item>
-                        <Dropdown.Item 
-                            onClick = {() => (
-                                setFilter({...filter, page: 1,item_per_page: 20}),
-                                setCurrentItems(0)
-                            )}
-                        >
-                          Show 20
-                        </Dropdown.Item>
-                        <Dropdown.Item 
-                            onClick = {() => (
-                                setFilter({...filter, page: 1,item_per_page: 25}),
-                                setCurrentItems(0)
-                            )}
-                        >
-                          Show 25
-                        </Dropdown.Item>
-                              
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </Col>
-                </Row>
+                </Row>        
               </Card.Body>
                 <Row>
                   <Col>
