@@ -14,6 +14,6 @@ class CategoryRepository
     public function getAll()
     {
         $category = Category::orderBy('category.id','asc')->get();
-        return new CategoryCollection($category);
+        return $category;
     }   
 }

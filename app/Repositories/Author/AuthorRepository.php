@@ -14,6 +14,6 @@ class AuthorRepository
     public function getAll()
     {    
         $author = Author::orderBy('author.id','asc')->get();
-        return new AuthorCollection($author);  
+        return $author;  
     }
 }
