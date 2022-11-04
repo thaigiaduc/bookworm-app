@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Resources\CategoryCollection;
 use App\Repositories\Category\CategoryRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +21,7 @@ class CategoryController extends Controller
     {
         try {
             $category = $this->categoryRepo->getAll();
-            return response()->json($category,200);
+            return response()->json(new CategoryCollection($category),200);
         } catch(\Exception $e) {
             return response()->json($e->getMessage(),400);
         }

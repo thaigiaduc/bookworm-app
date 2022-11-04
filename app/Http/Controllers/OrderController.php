@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\StoreBookRequest;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Carbon\Carbon;
@@ -9,37 +11,11 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function createOrder(Request $request)
+    public function createOrder(StoreBookRequest $request)
     {
         $order_amount = 0;
         $order_item = [];
         $flag = 0;
-        
-        // foreach($request->all() as $orders => $order) {
-        //     $order_amount += $order['quantity'];
-        //     array_push($order_item, [
-        //         'book_id' => $order['book_id'],
-        //         'quantity' => $order['quantity'],
-        //         'price' => $order['price']
-        //     ]);
-        // }
-        // try {
-        //     $order = Order::create([
-        //         'user_id' => $request->user_id,
-        //         'order_date' => Carbon::now(),
-        //         'order_amount' => $order_amount
-        //     ]);
-
-        //     $order->orderitem()->createMany($order_item);
-        //     return response(['success' => true]);
-            
-        //     } catch (\Throwable $th) {
-        //         return response([
-        //             'success' => false,
-        //             'message' => $th->getMessage()
-        //         ]);
-        //     }
-
             
         try {
             $order_array = $request->order_item;

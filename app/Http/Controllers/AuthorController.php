@@ -26,7 +26,7 @@ class AuthorController extends Controller
     {
         try {
             $author = $this->authorRepo->getAll();
-            return response()->json($author,200);
+            return response()->json(new AuthorCollection($author),200);
         } catch(\Exception $e) {
             return response()->json($e->getMessage(),400);
         }  
