@@ -2,18 +2,18 @@ import axiosServices from "./axiosServices";
 
 const shopAPI = {
     getCategory: () => {
-        const a = "api/shop/category";
-        return axiosServices.get(a);
+        const rs = "api/shop/category";
+        return axiosServices.get(rs);
     },
 
     getAuthor: () => {
-        const a= "api/shop/author";
-        return axiosServices.get(a);
+        const rs = "api/shop/author";
+        return axiosServices.get(rs);
     },
 
     getBookFilter: (query) => {
-        const a = `api/shop?${query}`;
-        return axiosServices.get(a);
+        const rs = `api/shop?${query}`;
+        return axiosServices.get(rs);
     }
 }
 

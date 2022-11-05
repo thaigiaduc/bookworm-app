@@ -9,6 +9,11 @@ const productAPI = {
     getReviewDetails: (a, b) => {
         const rs = `api${a}?${b}`;
         return axiosServices.get(rs);
+    },
+
+    createReview: (object) => {
+        const rs = 'api/shop/product/createReview';
+        return axiosServices.post(rs, object);
     }
 }
 

@@ -18,27 +18,27 @@ function Header() {
         <header className="App-header">
             <Navbar collapseOnSelect fixed='top' expand="lg" bg="light" variant="light">
               <Container fluid>
-                <Navbar.Brand as={Link} to="/"><img src="../assets/bookworm_icon.svg"></img></Navbar.Brand>
+                <Navbar.Brand as={Link} to="/"><img src="../../assets/bookworm_icon.svg"></img></Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                   <Nav className="justify-content-end flex-grow-1 pe-3">
                     <NavLink  className={({ isActive }) =>
-                      isActive ? 'bg-green-500 font-bold nav-link active' : 'bg-red-500 font-thin nav-link'
+                      isActive ? 'activeClass' : 'bg-red-500 font-thin nav-link'
                     } to="/home">
                       Home
                     </NavLink>
                     <NavLink className={({ isActive }) =>
-                      isActive ? 'bg-green-500 font-bold active nav-link' : 'bg-red-500 font-thin nav-link'
+                      isActive ? 'activeClass' : 'bg-red-500 font-thin nav-link'
                     } to="/shop">
                       Shop
                     </NavLink>
                     <NavLink  className={({ isActive }) =>
-                      isActive ? 'bg-green-500 font-bold active nav-link' : 'bg-red-500 font-thin nav-link'
+                      isActive ? 'activeClass' : 'bg-red-500 font-thin nav-link'
                     } to="/about">
                       About
                     </NavLink>
                     <NavLink className={({ isActive }) =>
-                      isActive ? 'bg-green-500 font-bold active nav-link' : 'bg-red-500 font-thin nav-link'
+                      isActive ? 'activeClass' : 'bg-red-500 font-thin nav-link'
                     } to="/cart">
                       Cart (3)
                     </NavLink>

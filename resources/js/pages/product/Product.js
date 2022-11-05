@@ -1,15 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import {Container, ButtonGroup, Button, Row, Col, Card, Dropdown, Form} from 'react-bootstrap';
+import {Container, ButtonGroup, Button, Row, Col, Card, Dropdown, Form, Modal, Alert} from 'react-bootstrap';
 import '../../App.css';
 import ReactPaginate from 'react-paginate';
 import productAPI from '../../services/productAPI';
 import { useParams, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
+import ReviewForm from './reviewForm/ReviewForm';
+
 function Product() {
   const id = useParams();
-
   const [productDetails, setProductDetails] = useState([]);
   const [reviewDetails, setReviewDetails] = useState([]);
   const [ratingStart, setRatingStart] = useState(0);
@@ -26,16 +27,28 @@ function Product() {
   // paginate
   const [currentItems, setCurrentItems] = useState(null);
   const [itemOffset, setItemOffset] = useState(0);
+  // set title for sort
   const [titleDay, setTitleDay] = useState("Sort by Date: newest to oldest");
   const [titleRating, setTitleRating] = useState("");
+  // filter sort
   const [filter, setFilter] = useState({
     sortbyday: 'newest',
     page : 1
   })
-  const [titleSort, setTitleSort] = useState("Sort by on sale");
+  // set alert for add to cart
+  const [cartAlert, setCartAlert] = useState(false);
+  // modal alert
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const [showError, setShowError] = useState(false);
+  const handleCloseError = () => setShowError(false);
+
+  const [reviewData, setReviewData] = useState({
+
+  });
   const navigate = useNavigate();
   const url = window.location.pathname;
-  let reviewUrl = "/product"+"/review/";
+  let reviewUrl = "/shop/product"+"/review/";
   for(let x in id) {
     reviewUrl += id[x];
   }
@@ -47,7 +60,6 @@ function Product() {
           const b = await productAPI.getReviewDetails(reviewUrl, queryParams);
           setProductDetails(a.data);
           setRatingStart(a.data[0].avg_rating);
-
           setReviewDetails(b.data);
           setTotal(b.total);
           setPerPage(b.per_page);
@@ -55,12 +67,12 @@ function Product() {
           setTo(b.to);
           setFrom(b.from);
       } catch (error) {
-          error => navigate('/product');
+          error => navigate('/shop/product');
       }
   }
   product();
     
-}, [filter,itemOffset]);
+}, [filter,itemOffset,show]);
 
   const CardItemProduct = props => {
     return (
@@ -74,7 +86,7 @@ function Product() {
               <Card.Body>
                 <Row>
                   <Col xs lg={3}>
-                    <Card.Img variant="top" src={props.book_cover_photo === null || props.book_cover_photo === 'null' ? "../assets/bookcover/bookCover.jpg" : "../assets/bookcover/"+props.book_cover_photo+".jpg"} />
+                    <Card.Img variant="top" src={props.book_cover_photo === null || props.book_cover_photo === 'null' ? "../../assets/bookcover/bookCover.jpg" : "../../assets/bookcover/"+props.book_cover_photo+".jpg"} />
                   </Col>
                   <Col xs lg={8}>
                     <Card.Title>{props.book_title}</Card.Title>
@@ -137,23 +149,39 @@ function Product() {
     } 
 
     var flag = 0;
+    var flag2 = 1;
     var tam = {'book_id': bookID,'book_cover_photo': bookImg, 'book_price': bookPrice, 'book_quantity': bookQuantity, 'book_title': bookTitle, 'book_author': bookAuthorName};
     cartArray = JSON.parse(localStorage.getItem('cart'));
     for(var i=0;i<cartArray.length;i++) {
       if(cartArray[i].book_id == bookID) {
-        bookQuantity += cartArray[i].book_quantity;
-        cartArray[i].book_quantity = bookQuantity;
-        flag = 1;  
+        if((cartArray[i].book_quantity + bookQuantity) < 9 && (cartArray[i].book_quantity + bookQuantity) > 0) {
+          bookQuantity += cartArray[i].book_quantity;
+          cartArray[i].book_quantity = bookQuantity;
+        } else {
+          flag2 = 0;
+        }
+
+        flag = 1
       }
     }   
     
     if(flag == 0) {
       cartArray.push(tam);
+      setShow(true);
     } 
+
+    if(flag == 1 && flag2 == 1) {
+      setShow(true);
+    }
+    console.log(flag2);
+    if(flag == 1 && flag2 == 0) {
+      setShow(false);
+      setShowError(true);
+    }
     localStorage.setItem('cart',JSON.stringify(cartArray));
     setQuantity(quantity = 1);
-    
-    return alert("success");
+    // setTimeout(setShow(false), 10000);
+    return true;
   }
 
   const ReviewProductDetails = props => {
@@ -189,7 +217,7 @@ function Product() {
               <Card.Body>
                 <Row>
                   <Col xs lg={5}>
-                    <Card.Title>Customer Review ({titleRating})</Card.Title>
+                    <Card.Title>Customer Reviews {titleRating}</Card.Title>
                   </Col>
                   <Col xs lg={6}></Col>
                 </Row>
@@ -205,7 +233,7 @@ function Product() {
                         <Button variant="light"
                           onClick = {() => (
                             setFilter({...filter, page: 1, rating_start: 5}),
-                            setTitleSort("filtered by 5 star"),
+                            setTitleRating("filtered by 5 star"),
                             setCurrentItems(0)
                           )}
                         >
@@ -214,7 +242,7 @@ function Product() {
                         <Button variant="light"
                           onClick = {() => (
                             setFilter({...filter, page: 1, rating_start: 4}),
-                            setTitleSort("filtered by 4 star"),
+                            setTitleRating("filtered by 4 star"),
                             setCurrentItems(0)
                           )}
                         >
@@ -223,7 +251,7 @@ function Product() {
                         <Button variant="light"
                           onClick = {() => (
                             setFilter({...filter, page: 1, rating_start: 3}),
-                            setTitleSort("filtered by 3 star"),
+                            setTitleRating("filtered by 3 star"),
                             setCurrentItems(0)
                           )}
                         >
@@ -232,7 +260,7 @@ function Product() {
                         <Button variant="light"
                           onClick = {() => (
                             setFilter({...filter, page: 1, rating_start: 2}),
-                            setTitleSort("filtered by 2 star"),
+                            setTitleRating("filtered by 2 star"),
                             setCurrentItems(0)
                           )}
                         >
@@ -241,7 +269,7 @@ function Product() {
                         <Button variant="light"
                           onClick = {() => (
                             setFilter({...filter, page: 1, rating_start: 1}),
-                            setTitleSort("filtered by 1 star"),
+                            setTitleRating("filtered by 1 star"),
                             setCurrentItems(0)
                           )}
                         >
@@ -375,37 +403,7 @@ function Product() {
           </Col>
           
           <Col xs lg={4}>
-            <Card>
-              <Card.Header>
-                <h2>Write a review</h2>
-              </Card.Header>
-              <Card.Body>
-                <form method="get" action=''>
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="review_title">Add a title</Form.Label>
-                    <Form.Control id="review_title" name="review_title" />
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label  htmlFor="review_details">Detail please! Your detail help other shoppers</Form.Label>       
-                    <Form.Control id="review_details" name="review_details" />
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Detail please! Your detail help other shoppers</Form.Label>
-                    <Form.Select name="rating_start" >
-                      <option value="1">1 Star</option>
-                      <option value="2">2 Star</option>
-                      <option value="3">3 Star</option>
-                      <option value="4">4 Star</option>
-                      <option value="5">5 Star</option>
-                    </Form.Select>
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Button type="submit">Submit</Button>
-                  </Form.Group>
-                </form>
-              
-              </Card.Body>
-            </Card>
+            <ReviewForm />
           </Col>
         </Row>
       </React.Fragment>
@@ -429,44 +427,24 @@ function Product() {
               </Card.Body>
                 <Row>
                   <Col>
-                    <h2>Not review yet !</h2>
-                    
+                    <Card>
+                      <Card.Body>
+                        <Row>
+                          <Col xs lg={11}>
+                          Not review yet !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                          </Col>
+                        </Row>
+                      </Card.Body> 
+                    </Card>
                   </Col>
+                  
                 </Row>
             </Card>
           </Col>
           
           <Col xs lg={4}>
             <Card>
-              <Card.Header>
-                <h2>Write a review</h2>
-              </Card.Header>
-              <Card.Body>
-                <form method="get" action=''>
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="review_title">Add a title</Form.Label>
-                    <Form.Control id="review_title" name="review_title" />
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label  htmlFor="review_details">Detail please! Your detail help other shoppers</Form.Label>       
-                    <Form.Control id="review_details" name="review_details" />
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Detail please! Your detail help other shoppers</Form.Label>
-                    <Form.Select name="rating_start" >
-                      <option value="1">1 Star</option>
-                      <option value="2">2 Star</option>
-                      <option value="3">3 Star</option>
-                      <option value="4">4 Star</option>
-                      <option value="5">5 Star</option>
-                    </Form.Select>
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Button type="submit">Submit</Button>
-                  </Form.Group>
-                </form>
-              
-              </Card.Body>
+              <ReviewForm />
             </Card>
           </Col>
         </Row>
@@ -475,6 +453,21 @@ function Product() {
   }
   return (
       <Container fluid>
+        <Modal show={show} onHide={handleClose}>
+          <Alert variant="success">
+            <Modal.Header closeButton>
+              Add to cart success 
+            </Modal.Header>
+          </Alert>
+        </Modal>
+
+        <Modal show={showError} onHide={handleCloseError}>
+          <Alert variant="danger">
+            <Modal.Header closeButton>
+              Add to cart failed 
+            </Modal.Header>
+          </Alert>
+        </Modal>
         {
           productDetails.map((item,index) => (
             <CardItemProduct

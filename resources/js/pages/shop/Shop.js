@@ -67,7 +67,7 @@ function Shop() {
     const CardItem = props => {
         return (
             <Col xs lg={3} style={{width: "auto"}}>
-                <Card style={{ width: '16rem', height: "450px", margin: "10px 0px 10px 30px", boxShadow: "5px 5px #DDDDDD" }} onClick={ () =>(navigate(`/product/${props.book_id}`)) }>
+                <Card style={{ width: '16rem', height: "450px", margin: "10px 0px 10px 30px", boxShadow: "5px 5px #DDDDDD" }} onClick={ () =>(navigate(`/shop/product/${props.book_id}`)) }>
                     <Card.Img variant="top" src={props.book_cover_photo === null || props.book_cover_photo === 'null' ? "../assets/bookcover/bookCover.jpg" : "../assets/bookcover/"+props.book_cover_photo+".jpg" } height="300px" width="300px"/>
                     <Card.Body>
                         <Card.Title>{props.book_title.slice(0,30)+"..."}</Card.Title>
@@ -177,7 +177,58 @@ function Shop() {
     }
 
     const ProductPack = () => {
-        
+        return (
+            <React.Fragment>
+                    <Row>
+                    {
+                        allBook.length !== 0 ? allBook.map(item => (
+                            <CardItem 
+                                book_id = {item.id}
+                                book_title = {item.book_title}
+                                book_cover_photo = {item.book_cover_photo}
+                                author = {item.author_name}
+                                book_price = {item.book_price}
+                                final_price = {item.final_price}
+                                key = {item.id}
+                            />
+                        )) :  <SpinLoading />
+                    }
+                    </Row>
+
+                    <Row className="justify-content-md-center text-center" style={{paddingTop: "30px"}}>
+                        <Col xs lg={6}>
+                           
+                            <ReactPaginate
+                                breakLabel="..."
+                                nextLabel="Next >"
+                                nextPageRel="null"
+                                onPageChange={(event) => (
+                                    setItemOffset((event.selected * perPage) % lastPage),
+                                    setFilter({...filter, page: event.selected+1}),
+                                    setCurrentItems(event.selected )
+                                )}
+                                pageRangeDisplayed={5}
+                                pageCount={lastPage}
+                                pageClassName={'page-item'}
+                                pageLinkClassName={'page-link'}
+                                previousClassName={'page-item'}
+                                previousLinkClassName={'page-link'}
+                                nextClassName={'page-item'}
+                                nextLinkClassName={'page-link'}
+                                breakClassName={'page-item'}
+                                forcePage={currentItems}
+                                breakLinkClassName={'page-link'}
+                                containerClassName={'pagination'}
+                                activeClassName={'active'}        
+                                previousLabel="< Previous"
+                                prevPageRel="null"
+                                renderOnZeroPageCount={null}
+                            />
+                            
+                        </Col>
+                    </Row>
+            </React.Fragment>
+        );   
     }
 
     return (
@@ -353,54 +404,7 @@ function Shop() {
                 </Col>
 
                 <Col xs lg={9}>
-                    <Row>
-                    {
-                        allBook.length !== 0 ? allBook.map(item => (
-                            <CardItem 
-                                book_id = {item.id}
-                                book_title = {item.book_title}
-                                book_cover_photo = {item.book_cover_photo}
-                                author = {item.author_name}
-                                book_price = {item.book_price}
-                                final_price = {item.final_price}
-                                key = {item.id}
-                            />
-                        )) :  <SpinLoading />
-                    }
-                    </Row>
-
-                    <Row className="justify-content-md-center text-center" style={{paddingTop: "30px"}}>
-                        <Col xs lg={6}>
-                           
-                            <ReactPaginate
-                                breakLabel="..."
-                                nextLabel="Next >"
-                                nextPageRel="null"
-                                onPageChange={(event) => (
-                                    setItemOffset((event.selected * perPage) % lastPage),
-                                    setFilter({...filter, page: event.selected+1}),
-                                    setCurrentItems(event.selected )
-                                )}
-                                pageRangeDisplayed={5}
-                                pageCount={lastPage}
-                                pageClassName={'page-item'}
-                                pageLinkClassName={'page-link'}
-                                previousClassName={'page-item'}
-                                previousLinkClassName={'page-link'}
-                                nextClassName={'page-item'}
-                                nextLinkClassName={'page-link'}
-                                breakClassName={'page-item'}
-                                forcePage={currentItems}
-                                breakLinkClassName={'page-link'}
-                                containerClassName={'pagination'}
-                                activeClassName={'active'}        
-                                previousLabel="< Previous"
-                                prevPageRel="null"
-                                renderOnZeroPageCount={null}
-                            />
-                            
-                        </Col>
-                    </Row>
+                    <ProductPack />
                 </Col>
             </Row>
         </Container>     

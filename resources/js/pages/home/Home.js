@@ -54,7 +54,7 @@ function Home() {
 
     const CardItemCarousel = props => {
         return (
-            <Card style={{ width: 'auto', height: "450px", margin: "10px 20px 10px 20px", boxShadow: "5px 5px #DDDDDD" }} onClick={ () =>(navigate(`/product/${props.book_id}`)) }>
+            <Card style={{ width: 'auto', height: "450px", margin: "10px 20px 10px 20px", boxShadow: "5px 5px #DDDDDD" }} onClick={ () =>(navigate(`/shop/product/${props.book_id}`)) }>
                 <Card.Img variant="top" src={props.book_cover_photo === null || props.book_cover_photo === 'null' ? "../assets/bookcover/bookCover.jpg" : "../assets/bookcover/"+props.book_cover_photo+".jpg"} height="300px" width="150px"/>
                 <Card.Body>
                     <Card.Title>{props.book_title.slice(0,30)+"..."}</Card.Title>
@@ -76,7 +76,7 @@ function Home() {
     const CardItemFeatured = props => {
         return (
             <Col xs lg={3} style={{width: "auto"}}>
-                <Card style={{ width: '16rem', margin: "10px 40px 10px 35px", boxShadow: "5px 5px #DDDDDD" }} onClick={ () =>(navigate(`/product/${props.book_id}`)) }>
+                <Card style={{ width: '16rem', margin: "10px 40px 10px 35px", boxShadow: "5px 5px #DDDDDD" }} onClick={ () =>(navigate(`/shop/product/${props.book_id}`)) }>
                     <Card.Img variant="top" src={props.book_cover_photo === null || props.book_cover_photo === 'null' ? "../assets/bookcover/bookCover.jpg" : "../assets/bookcover/"+props.book_cover_photo+".jpg"} height="300px" width="300px"/>
                     <Card.Body>
                         <Card.Title>{props.book_title.slice(0,30)+"..."}</Card.Title>
