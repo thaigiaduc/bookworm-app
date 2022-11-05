@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
 use App\Http\Resources\BookResource;
+use App\Http\Resources\HomeCollection;
 use App\Models\Book;
 use App\Repositories\Book\BookInterface;
 use App\Repositories\Book\BookRepository;
@@ -48,7 +49,7 @@ class BookController extends Controller
     {
         try {
             $books = $this->bookRepo->getQueryBookOnSale();
-            return response()->json(new BookCollection($books), 200);
+            return response()->json(new HomeCollection($books), 200);
         } catch(\Exception $e) {
             return response()->json($e->getMessage(),400);
         }
@@ -59,7 +60,7 @@ class BookController extends Controller
     {
         try {
             $books = $this->bookRepo->getQueryFeaturedBookRecommended();
-            return response()->json(new BookCollection($books),200);
+            return response()->json(new HomeCollection($books),200);
         } catch(\Exception $e) {
             return response()->json($e->getMessage(),400);
         }
@@ -70,7 +71,7 @@ class BookController extends Controller
     {
         try {
             $books = $this->bookRepo->getQueryFeaturedBookPopularity();
-            return response()->json(new BookCollection($books),200);
+            return response()->json(new HomeCollection($books),200);
         } catch(\Exception $e) {
             return response()->json($e->getMessage(),400);
         }

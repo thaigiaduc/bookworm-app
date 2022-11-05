@@ -43,14 +43,16 @@ class ReviewController extends Controller
                 'review_date'=>Carbon::now(),
                 'rating_start'=>$request->rating_start,
             ]);
-            return response()->json([
-                $review,201
-            ]);
+            // $review = new Review();
+            // $review->review_title = $request->review_title;
+            // $review->review_details = $request->review_details;
+            // $review->rating_start = $request->rating_start;
+            // $review->book_id = $request->book_id;
+            // $review->review_date = Carbon::now();
+            // $review->save();
+            return response()->json($review,201);
         } catch(Exception $e) {
-            return response()->json([
-                'message'=>$e->getMessage(),
-                'status_code'=>404
-            ]);
+            return response()->json($e->getMessage(),404);
         }       
     }
 

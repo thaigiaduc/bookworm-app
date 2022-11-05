@@ -6,6 +6,7 @@ use App\Http\Resources\ReviewCollection;
 use App\Http\Resources\ReviewResource;
 use App\Models\Review;
 use App\Http\Requests\ReviewRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ReviewRepository
@@ -30,7 +31,7 @@ class ReviewRepository
         {
             $request->item_per_page = 5;
         }
-        $review_data = Review::select('book_id','review_title','review_details','review_date','rating_start')->where('review.book_id',$id)
+        $review_data = Review::select('id','book_id','review_title','review_details','review_date','rating_start')->where('review.book_id',$id)
         ->when($request->has('rating_start'), function($query) use ($request){
             $query->where('rating_start',$request->rating_start);
         })->when($request->sortbyday == 'asc', function($query) use ($request){

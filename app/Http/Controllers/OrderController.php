@@ -38,11 +38,7 @@ class OrderController extends Controller
                 'status_code'=>201,
             ]);
         } catch(\Exception $e) {
-            return response()->json([
-                'alert'=>$e->getMessage(),
-                'message'=>'failed',
-                'status_code'=>400,
-            ]);
+            return response()->json($e->getMessage(),400);
         }
     }
 }

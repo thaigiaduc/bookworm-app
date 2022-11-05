@@ -31,11 +31,15 @@ class BookRepository
     {
         $books = Book::select('book.id','category_id','author_id','book_title','book_summary','book_price','book_cover_photo')
         ->selectRaw('case
+                when(discount.discount_start_date <=now() and (discount.discount_end_date >= now() or discount.discount_end_date IS NULL)) then discount.discount_price 
+                else book.book_price
+                end as final_price')
+        ->selectRaw('case
                 when(discount.discount_start_date <=now() and (discount.discount_end_date >= now() or discount.discount_end_date IS NULL)) then book.book_price-discount.discount_price 
                 else book.book_price - book.book_price
                 end as sub_price')
         ->leftjoin('discount','discount.book_id','=','book.id')
-        ->orderBy('sub_price','desc')->paginate(10);
+        ->orderBy('sub_price','desc')->limit(10)->get();
         return $books;
     }
 
@@ -53,7 +57,7 @@ class BookRepository
         ->join('review','review.book_id','=','book.id')
         ->groupBy('book.id','discount.discount_end_date','discount.discount_price','discount.discount_start_date')
         ->orderBy('avg_rating_start','desc')->orderBy('final_price','asc')
-        ->paginate(8);
+        ->limit(8)->get();
         
         return $books;
     }
@@ -69,7 +73,7 @@ class BookRepository
         ->join('review','review.book_id','=','book.id')
         ->leftjoin('discount','discount.book_id','=','book.id')
         ->orderBy('num_review', 'desc')->orderBy('final_price','asc')
-        ->groupBy('book.id','discount.discount_end_date','discount.discount_start_date','discount.discount_price')->paginate(8);
+        ->groupBy('book.id','discount.discount_end_date','discount.discount_start_date','discount.discount_price')->limit(8)->get();
 
         return $books;
     }
