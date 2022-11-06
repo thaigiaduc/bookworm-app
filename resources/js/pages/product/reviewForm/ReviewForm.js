@@ -37,8 +37,8 @@ function ReviewForm() {
                 setReload(true);
             } catch (error) {
                 if(error.response.status === 422){
+                    console.clear();
                     setAlert(false);
-                    
                     if(typeof error.response.data.data.review_title !== "undefined" && typeof error.response.data.data.review_details !== "undefined") {
                         setMessage({...message, title_error: error.response.data.data.review_title[0], details_error: error.response.data.data.review_details[0]});
                         
@@ -62,6 +62,7 @@ function ReviewForm() {
                 setA(false);
                 props.reload ? window.location.reload() : null;
             }, 5000);
+            return () => clearTimeout(time);
         }, []);
         
         if(!a) {

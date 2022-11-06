@@ -56,11 +56,19 @@ Route::prefix('shop')->group(function () {
     }); 
 });
 
-Route::post('session', [LoginController::class, 'login'])->name('api.login');
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::apiResource('books', BookAPIController::class);
-    Route::delete('session', [LoginController::class, 'logout'])->name('api.logout');
+Route::prefix('authenticate') -> name('login.') -> group(function(){
+    Route::name('authenticate.')->group(function() {
+        Route::post('/login', [LoginController::class, 'login']);
+        // Route::post('/signout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
+        Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
+    });
 });
+
+// Route::post('session', [LoginController::class, 'login'])->name('api.login');
+// Route::middleware(['auth:sanctum'])->group(function () {
+//     Route::apiResource('books', BookAPIController::class);
+//     Route::delete('session', [LoginController::class, 'logout'])->name('api.logout');
+// });
 
 
         

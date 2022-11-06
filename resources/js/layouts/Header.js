@@ -1,5 +1,5 @@
-import { Link, NavLink } from 'react-router-dom';
-import React, { useState, createContext } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import React, { useState, createContext, useEffect } from 'react';
 import '../App.css';
 import Container from 'react-bootstrap/Container';
 import Login from '../pages/login/Login';
@@ -8,12 +8,40 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import loginAPI from '../services/loginAPI';
 
 function Header() {
   const [show, setShow] = useState(false);
-  
+  const [fullName, setFullName] = useState("");
+  const [checkLogin, setCheckLogin] = useState(false);
   const handleShow = () => setShow(true);
-  
+  const navigate = useNavigate();
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem('user'));
+    if(userInfo){
+        setCheckLogin(true);
+        setFullName(userInfo.first_name + " " + userInfo.last_name);
+    }
+  }, []);
+
+  function handleLogout() {
+    const Logout = async () => {
+      try {
+          const b = await loginAPI.Logout();
+          if(b.status_code === 204){
+              localStorage.removeItem('user');
+              localStorage.removeItem('token');
+              setCheckLogin(false);
+              setFullname("");
+              navigate('/');
+          }
+      } catch (error) {
+          console.log(error);
+      }
+  }
+  Logout();
+  }
     return ( 
         <header className="App-header">
             <Navbar collapseOnSelect fixed='top' expand="lg" bg="light" variant="light">
@@ -42,20 +70,27 @@ function Header() {
                     } to="/cart">
                       Cart (3)
                     </NavLink>
-                    <Nav.Link>
-                      <Login 
-                        text = {"sign in"}
-                      />
-                    </Nav.Link>
+                    {
+                        checkLogin ? 
+                        <NavDropdown title={fullName} id="navbarScrollingDropdown">
+                          <NavDropdown.Item onClick = {() => handleLogout()}>Logout</NavDropdown.Item>
+                        </NavDropdown> :
+                      <Nav.Link>
+                        <Login 
+                          show = {show}
+                          text = {"sign in"}
+                        />
+                      </Nav.Link>
+                    }
                   </Nav>
                 </Navbar.Collapse>
               </Container>
             </Navbar>
 
-            <Login 
+            {/* <Login 
               show = {show}
               text = {"sign in"}
-            />
+            /> */}
         </header>
     );
 }

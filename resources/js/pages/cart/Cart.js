@@ -39,7 +39,7 @@ function Cart() {
             var a=0;
             for(var i=0;i<cartArray.length;i++) {
                 if(cartArray[i].book_id == id) {
-                  if(cartArray[i].book_quantity > 0 && cartArray[i].book_quantity < 9) {
+                  if(cartArray[i].book_quantity > 1 && cartArray[i].book_quantity < 9) {
                     cartArray[i].book_quantity -= 1;
                     localStorage.setItem('cart', JSON.stringify(cartArray));
                     setQuantity({id: id, quantity: cartArray[i].book_quantity});

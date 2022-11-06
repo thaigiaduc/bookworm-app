@@ -113,7 +113,7 @@ function Home() {
                     <div style={{fontSize: "20px"}}>On Sale</div>
                 </Col>
                 <Col xs lg={3}></Col>
-                <Col xs lg={3}><Button variant="secondary" style={{float: "right"}} as={Link} to="/shop">View All &nbsp; <i className="fas fa-angle-right"></i> </Button></Col>
+                <Col xs lg={3}><Button variant="secondary" style={{float: "right", width: "auto"}} as={Link} to="/shop">View All <i className="fas fa-angle-right"></i> </Button></Col>
             </Row>
             <Row className="justify-content-md-center" style={{padding: "10px 0px 0px 0px"}}>
                 <Col xs lg={9} style={{border: "groove 3px", boxShadow: "5px 10px #DDDDDD"}}>
