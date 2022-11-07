@@ -11,6 +11,11 @@ const productAPI = {
         return axiosServices.get(rs);
     },
 
+    getCountRating: (a) => {
+        const rs = `api${a}`;
+        return axiosServices.get(rs);
+    },
+
     createReview: (object) => {
         const rs = 'api/shop/product/createReview';
         return axiosServices.post(rs, object);

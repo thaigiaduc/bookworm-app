@@ -12,25 +12,21 @@ function Login(props) {
     const [data, setData] = useState({
       email: "",
       password: "",
-  });
-  const [res, setRes] = useState(null);
-    useEffect(()=>{
-        setIsShow(show);
-        // axios.post('http://localhost:8000/api/session')
-        // .then(res => {
-        //     setUser(res.data);
-        // })
-        // .catch(error => console.log(error));
-    }, [show])
+    });
+    const [checkEmail, setCheckEmail] = useState(false);
+    const [messageEmail, setMessageEmail] = useState("");
+    const [checkPassword, setCheckPassword] = useState(false);
+    const [messagePassword, setMessagePassword] = useState("");
+    const [res, setRes] = useState(null);
+      useEffect(()=>{
+          setIsShow(show);
+          
+      }, [show])
 
-    // function handleLogin() {
-        
-    // }
     function handle(e) {
       let newData ={...data}
       newData[e.target.id] = e.target.value;
       setData(newData);
-      
     }
 
     function handleSubmit(e) {
@@ -41,11 +37,28 @@ function Login(props) {
                 email: data.email,
                 password: data.password,
             });
-            alert("hello " + a.data.first_name + " " + a.data.last_name);
             if(a.status_code === 200) {
               localStorage.setItem('user', JSON.stringify(a.data));
               localStorage.setItem('token', JSON.stringify(a.access_token));
+              alert("hello " + a.data.first_name + " " + a.data.last_name);
               window.location.reload();
+            } else if(a.status_code == 401) {
+              if(typeof a.data.email != 'undefined') {
+                setCheckEmail(true);
+                setMessageEmail(a.data.email);
+              } else {
+                setCheckEmail(false);
+                setMessageEmail("");
+              }
+
+              if(typeof a.data.password != 'undefined') {
+                setCheckPassword(true);
+                setMessagePassword(a.data.password);
+              } else {
+                setCheckPassword(false);
+                setMessagePassword("");
+              }
+              alert('login failed');
             }
             
         } catch (error) {
@@ -67,11 +80,22 @@ function Login(props) {
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">Email address</label>
                   <input type="email" className="form-control" id="email" aria-describedby="emailHelp" onChange={(e) => handle(e)} value={data.email} />
-                  {/* <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div> */}
+                  {
+                    checkEmail ? 
+                    <div className="alert alert-danger" role="alert">
+                      {messageEmail}
+                    </div> : ""
+                  }
                 </div>
                 <div className="mb-3">
                   <label htmlFor="password" className="form-label">Password</label>
                   <input type="password" className="form-control" id="password" onChange={(e) => handle(e)} value={data.password} />
+                  {
+                    checkPassword ? 
+                    <div className="alert alert-danger" role="alert">
+                      {messagePassword}
+                    </div> : ""
+                  }
                 </div>
               </form>
               </Modal.Body>

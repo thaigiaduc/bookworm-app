@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class StoreBookRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class StoreBookRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -31,4 +33,25 @@ class StoreBookRequest extends FormRequest
             'user_id' => 'required|integer',
         ];
     }
+
+    public function failedValidation(Validator $validator)
+    {
+
+        throw new HttpResponseException(response()->json([
+            'message' => 'Failed',
+            'data' => $validator->errors(),
+            'status_code' => 422
+        ],200));
+
+    }
+
+    public function messages()
+	{
+	   return [
+		  'order_item.*.book_id.required' => 'Invalid book_id',
+		  'order_item.*.quantity.required' => 'Invalid quantity.',
+		  'order_item.*.price.error' => 'Invalid price.',
+          'user_id.required' => 'Bạn chưa đăng nhập',
+	   ];
+	}
 }

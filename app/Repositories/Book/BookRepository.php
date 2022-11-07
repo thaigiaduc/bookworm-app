@@ -22,8 +22,13 @@ class BookRepository
     // lấy details book
     public function getQueryBookDetails($id)
     {
-        $product_details = Book::where('book.id', $id)->paginate();
-        return $product_details;
+        $isExist = Book::where('book.id', $id)->doesntExist();
+        if($isExist) {
+            return null;
+        } else {
+            $product_details = Book::where('book.id', $id)->paginate();
+            return $product_details;
+        }
     }
 
     // lấy book onsale section trong homepage

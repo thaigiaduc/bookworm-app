@@ -37,8 +37,12 @@ class BookController extends Controller
     public function show($id)
     {
         try {
-            $books = $this->bookRepo->getQueryBookDetails($id);
-            return response()->json(new BookCollection($books),200);
+            if($this->bookRepo->getQueryBookDetails($id) !== null) {
+                $books = $this->bookRepo->getQueryBookDetails($id);
+                return response()->json(new BookCollection($books),200);
+            } else {
+                return response()->json(['message'=>'error','status_code'=>404],200);
+            }          
         } catch(\Exception $e) {
             return response()->json($e->getMessage(),400);
         }

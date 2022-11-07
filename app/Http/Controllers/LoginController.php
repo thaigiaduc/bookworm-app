@@ -58,7 +58,7 @@ class LoginController extends Controller
     //     return response()->json('', 204);
     // }
 
-    public function login(Request $request) 
+    public function login(LoginRequest $request) 
     {
         return $this->loginRepo->queryLogin($request);
     }

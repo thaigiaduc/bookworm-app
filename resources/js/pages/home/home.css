@@ -1,0 +1,12 @@
+#cartItemCarou {
+    width: auto; 
+    height: 450px; 
+    margin: 10px 20px 10px 20px; 
+    box-shadow: 5px 5px #DDDDDD; 
+}
+
+#cartItemFeatured {
+    width: 16rem; 
+    margin: 10px 40px 10px 35px;
+    box-shadow: 5px 5px #DDDDDD
+}

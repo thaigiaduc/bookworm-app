@@ -8,6 +8,7 @@ import queryString from 'query-string';
 import { isEmpty } from 'lodash';
 function ReviewForm() {
     const id = useParams();
+    const navigate = useNavigate();
     const [data, setData] = useState({
         review_title: "",
         review_details: "",
@@ -32,43 +33,39 @@ function ReviewForm() {
                     rating_start: data.rating_start,
                     book_id: data.book_id
                 });
-                setAlert(true);
-                setMessage({...message, title_error: "", details_error: ""});
-                setReload(true);
-            } catch (error) {
-                if(error.response.status === 422){
-                    console.clear();
+                if(c.status_code !== 422) {
+                    setAlert(true);
+                    setMessage({...message, title_error: "", details_error: ""});
+                    setReload(true);
+                } else {
                     setAlert(false);
-                    if(typeof error.response.data.data.review_title !== "undefined" && typeof error.response.data.data.review_details !== "undefined") {
-                        setMessage({...message, title_error: error.response.data.data.review_title[0], details_error: error.response.data.data.review_details[0]});
-                        
-                    } else if(typeof error.response.data.data.review_title == "undefined" && typeof error.response.data.data.review_details !== "undefined") {
-                        setMessage({...message, title_error: "", details_error: error.response.data.data.review_details[0]});
-                    } else if(typeof error.response.data.data.review_title !== "undefined" && typeof error.response.data.data.review_details == "undefined") {
-                        setMessage({...message, title_error: error.response.data.data.review_title[0], details_error: ""});
+                    if(typeof c.data.review_title !== "undefined" && typeof c.data.review_details !== "undefined") {
+                        setMessage({...message, title_error: c.data.review_title[0], details_error: c.data.review_details[0]});        
+                    } else if(typeof c.data.review_title == "undefined" && typeof c.data.review_details !== "undefined") {
+                        setMessage({...message, title_error: "", details_error: c.data.review_details[0]});
+                    } else if(typeof c.data.review_title !== "undefined" && typeof c.data.review_details == "undefined") {
+                        setMessage({...message, title_error: c.data.review_title[0], details_error: ""});
                     } else {
                         setMessage({...message, title_error: "", details_error: ""});
-                    }           
-                }
+                    }     
+                }        
+            } catch (error) {
+                console.log(error);
+                navigate("/shop/product");
             }
         }
         Review();
     }
 
     function AlertMessage(props) {
-        const [a, setA] = useState(true);
         useEffect(() => {
-            const time = setTimeout(() => {
-                setA(false);
+            function useTime() {
                 props.reload ? window.location.reload() : null;
-            }, 5000);
-            return () => clearTimeout(time);
+                clearTimeout(time);
+            }
+            const time = setTimeout(useTime, 5000);
         }, []);
         
-        if(!a) {
-            return null;
-        }
-
         return (
             <Alert variant={props.variant} key={props.variant}>
                 {props.message}

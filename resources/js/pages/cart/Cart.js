@@ -1,32 +1,79 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, createContext } from 'react';
 import { useState } from 'react';
-import {Container, Button, Row, Col, Card, ButtonGroup, ListGroup, Pagination, Accordion, Dropdown} from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import {Container, Button, Row, Col, Card, ButtonGroup} from 'react-bootstrap';
+import orderAPI from '../../services/orderAPI';
 import '../../App.css';
-
+import Login from '../login/Login'
 function Cart() { 
     const [cartItem, setCartItem] = useState(JSON.parse(localStorage.getItem('cart')));
     const [total, setTotal] = useState(0);
     const [quantity, setQuantity] = useState({id: "", quantity: 0, total: 0});
+    const navigate = useNavigate();
+    const [show, setShow] = useState(false);
+    const [titleCart,setTitleCart] = useState(0);
+    const [orderItem, setOrderItem] = useState({
+        user_id: "",
+        order_item: [],
+    })
     useEffect(() => {
         var testArray = JSON.parse(localStorage.getItem('cart'));
         if(testArray != null) {
             var c = 0;
+            setTitleCart(testArray.length);
             for(var i=0;i<testArray.length;i++) {
-                c += testArray[i].book_price*testArray[i].book_quantity;
+                c += testArray[i].price*testArray[i].quantity;
             }
             setTotal(c);
         }
     }, [])
+
     useEffect(() => {
         setCartItem(JSON.parse(localStorage.getItem('cart')));
     }, [quantity]);
 
     // order
-    const placeOrder = () => {
-        if(JSON.parse(localStorage.getItem('cart')) !== null) {
-            setCartItem(null);
-            localStorage.removeItem('cart');
-            return alert('success');
+    const placeOrder = (e) => {
+        e.preventDefault();
+            if(localStorage.getItem('cart') !== null && localStorage.getItem('user') !== null && localStorage.getItem('token') !== null) {
+                const Order = async () => {
+                    try {
+                        var orderArray = JSON.parse(localStorage.getItem('cart'));
+                        var userArray = JSON.parse(localStorage.getItem('user'));
+                        var userid = userArray.id;
+                        var mang = [];
+                        console.log(userid);
+                        for(var i=0;i<orderArray.length;i++) {
+                            mang.push(orderArray[i]);
+                        } 
+                        setOrderItem({
+                            user_id: userid,
+                            order_item: mang,
+                        });
+                        const a = await orderAPI.createOrder({
+                            user_id: userid,
+                            order_item: mang,
+                        });
+
+                        function alertTime() {
+                            setCartItem(null);
+                            setTotal(0);
+                            localStorage.removeItem('cart');
+                            alert('success');
+                            navigate(`/home`);
+                            clearTimeout(time);
+                        }
+                        if(a.status_code == 201) {
+                            const time = setTimeout(alertTime,10000);
+                        }
+                    } catch (error) {
+                        return alert(a.data);
+                    }
+                }
+                Order();
+        } else {
+            alert('Bạn chưa đăng nhập');
+            setShow(true);
         }
     }
 
@@ -39,15 +86,15 @@ function Cart() {
             var a=0;
             for(var i=0;i<cartArray.length;i++) {
                 if(cartArray[i].book_id == id) {
-                  if(cartArray[i].book_quantity > 1 && cartArray[i].book_quantity < 9) {
-                    cartArray[i].book_quantity -= 1;
+                  if(cartArray[i].quantity > 1 && cartArray[i].quantity < 9) {
+                    cartArray[i].quantity -= 1;
                     localStorage.setItem('cart', JSON.stringify(cartArray));
-                    setQuantity({id: id, quantity: cartArray[i].book_quantity});
+                    setQuantity({id: id, quantity: cartArray[i].quantity});
                   } else {
                     return ;
                   }
                 }
-                a += cartArray[i].book_price * (cartArray[i].book_quantity);
+                a += cartArray[i].price * (cartArray[i].quantity);
             }   
             setTotal(a);
         }
@@ -62,16 +109,16 @@ function Cart() {
             var b=0;
             for(var i=0;i<cartArray.length;i++) {
                 if(cartArray[i].book_id == id) {  
-                  if(cartArray[i].book_quantity > 0 && cartArray[i].book_quantity < 8) {
-                    cartArray[i].book_quantity += 1;
+                  if(cartArray[i].quantity > 0 && cartArray[i].quantity < 8) {
+                    cartArray[i].quantity += 1;
                     localStorage.setItem('cart', JSON.stringify(cartArray));
-                    setQuantity({id: id, quantity: cartArray[i].book_quantity });
+                    setQuantity({id: id, quantity: cartArray[i].quantity });
                     
                   } else {
                     return ;
                   }
                 }
-                b += cartArray[i].book_price * (cartArray[i].book_quantity);
+                b += cartArray[i].price * (cartArray[i].quantity);
             }   
             setTotal(b);
         }
@@ -84,16 +131,29 @@ function Cart() {
                     <Row>
                         <Col>
                             <Row>
-                                <Col>
+                                <Col> 
                                 <Card.Img 
                                     variant="top" 
                                     src={props.book_cover_photo === null || props.book_cover_photo === 'null' ? "../assets/bookcover/bookCover.jpg" : "../assets/bookcover/"+props.book_cover_photo+".jpg"} 
-                                    width="80px" height="200px" />
+                                    width="100px" height="200px" 
+                                    onClick = {
+                                        ()=>(navigate(`/shop/product/${props.book_id}`))
+                                    }
+                                    />
                                 </Col>
                                 <Col>
-                                    <Card.Text><b>{props.book_title.slice(0,25)+"..."}</b></Card.Text>
-                                    <Card.Text>{props.book_author}</Card.Text>
+                                    <Card.Text
+                                        onClick = {
+                                            ()=>(navigate(`/shop/product/${props.book_id}`))
+                                        }
+                                    ><b>{props.book_title.slice(0,25)+"..."}</b></Card.Text>
+                                    <Card.Text
+                                        onClick = {
+                                            ()=>(navigate(`/shop/product/${props.book_id}`))
+                                        }
+                                    >{props.book_author}</Card.Text>
                                 </Col>
+                                
                             </Row>
                         </Col>
                         <Col>{"$"+props.book_price}</Col>
@@ -125,7 +185,7 @@ function Cart() {
     return (
         <Container fluid style={{paddingBottom: "350px"}}>
             <Row className="justify-content-md-center">
-                <Col xs lg={11} style={{borderBottom: "groove 1px", fontSize: "30px"}}><b>Your Cart: 3 items</b></Col>
+                <Col xs lg={11} style={{borderBottom: "groove 1px", fontSize: "30px"}}><b>Your Cart: {titleCart} items</b></Col>
             </Row>
             <Row className="justify-content-md-center" style={{paddingTop: "50px"}}>
             <Col xs lg={7}>
@@ -152,8 +212,8 @@ function Cart() {
                             <ShowCart
                                 book_id = {item.book_id}
                                 book_cover_photo = {item.book_cover_photo}
-                                book_price = {item.book_price}
-                                book_quantity = {item.book_quantity}
+                                book_price = {item.price}
+                                book_quantity = {item.quantity}
                                 book_title = {item.book_title}
                                 book_author = {item.book_author}
                                 key = {index}
@@ -168,14 +228,17 @@ function Cart() {
                         <Card.Body>
                             <Row className="justify-content-md-center text-center">
                                 <Col xs lg={8}>
-                                    <Card.Text>{"$"+total.toFixed(2)}</Card.Text>
-                                    <Card.Text><Button onClick = { () => placeOrder() }>Place order</Button></Card.Text>
+                                    <Card.Text><strong style={{fontSize: "30px"}}>{"$"+total.toFixed(2)}</strong></Card.Text>
+                                    <Card.Text><Button style={{width: "260px"}} onClick = { (e) => placeOrder(e) }>Place order</Button></Card.Text>
                                 </Col>
                             </Row>
                         </Card.Body>
                     </Card>
                 </Col>
             </Row>
+            <Login 
+                show = {show}
+            />
         </Container>
     );
 }

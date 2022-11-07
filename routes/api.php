@@ -50,8 +50,9 @@ Route::prefix('shop')->group(function () {
         Route::name('product.')->group(function() {
             Route::get('/{id}', [BookController::class, 'show']);
             Route::get('/review/{id}', [ReviewController::class, 'index']);
+            Route::get('/review/count/{id}', [ReviewController::class, 'getCountRating']);
             Route::post('/createReview', [ReviewController::class, 'store']);
-            Route::post('/createOrder', [OrderController::class, 'createOrder']);
+            Route::post('/createOrder', [OrderController::class, 'createOrder'])->middleware('auth:sanctum');;
         });   
     }); 
 });
@@ -59,7 +60,6 @@ Route::prefix('shop')->group(function () {
 Route::prefix('authenticate') -> name('login.') -> group(function(){
     Route::name('authenticate.')->group(function() {
         Route::post('/login', [LoginController::class, 'login']);
-        // Route::post('/signout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
         Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
     });
 });

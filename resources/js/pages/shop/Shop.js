@@ -7,15 +7,15 @@ import {Container, Row, Col, Card, ListGroup, Pagination, Accordion, Dropdown} f
 import ReactPaginate from 'react-paginate';
 import shopAPI from '../../services/shopAPI';
 import '../../App.css';
-
+import './shop.css';
 function Shop() {
     // set all book
     const [allBook, setAllBook] = useState([]);
     // set category
     const [category, setCategory] = useState([]);
-    // const [activeCategory, setActiveCategory] = useState(0);
-    // const [activeAuthor, setActiveAuthor] = useState(0);
-    // const [activeRating, setActiveRating] = useState(0);
+    const [activeCategory, setActiveCategory] = useState(0);
+    const [activeAuthor, setActiveAuthor] = useState(0);
+    const [activeRating, setActiveRating] = useState(0);
     const [titleCategory, setTitleCategory] = useState("");
     const [titleAuthor, setTitleAuthor] = useState("");
     const [titleRating, setTitleRating] = useState("");
@@ -67,7 +67,7 @@ function Shop() {
     const CardItem = props => {
         return (
             <Col xs lg={3} style={{width: "auto"}}>
-                <Card style={{ width: '16rem', height: "450px", margin: "10px 0px 10px 30px", boxShadow: "5px 5px #DDDDDD" }} onClick={ () =>(navigate(`/shop/product/${props.book_id}`)) }>
+                <Card id="cardItem" onClick={ () =>(navigate(`/shop/product/${props.book_id}`)) }>
                     <Card.Img variant="top" src={props.book_cover_photo === null || props.book_cover_photo === 'null' ? "../assets/bookcover/bookCover.jpg" : "../assets/bookcover/"+props.book_cover_photo+".jpg" } height="300px" width="300px"/>
                     <Card.Body>
                         <Card.Title>{props.book_title.slice(0,30)+"..."}</Card.Title>
@@ -87,19 +87,26 @@ function Shop() {
         ); 
     }
 
+    function handleActiveCate(id,category_name) {
+        if(activeCategory != id) {
+            setFilter({...filter, page: 1, category: id});
+            setActiveCategory(id);
+            setTitleCategory(category_name);
+        } else if(activeCategory == id) {
+            setFilter({...filter, page: 1, category: ""});
+            setActiveCategory(0);
+            setTitleCategory("");
+        }
+        
+        setCurrentItems(0);
+    }
+
     const CategoryFilter = props => {
         return ( 
             <Accordion.Body>
-
                 <button 
-                    onClick = {() => (
-                        setFilter({...filter, page: 1, category: props.id}),
-                        // setActiveCategory(props.id),
-                        setTitleCategory(props.category_name),
-                        setCurrentItems(0)
-                    )}
-                        // variant={props.id == activeCategory ? 'secondary' : 'light'}
-                        style={{border: "none", color: "black"}}
+                    onClick = {() => handleActiveCate(props.id, props.category_name)}
+                    className = {props.id == activeCategory ? "activeFilter" : "noneActiveFilter"}
                 >
                     {props.category_name}
                 </button>
@@ -107,17 +114,26 @@ function Shop() {
         );
     }
 
+    function handleActiveAu(id,author_name) {
+        if(activeAuthor != id) {
+            setFilter({...filter, page: 1, author: id});
+            setActiveAuthor(id);
+            setTitleAuthor(author_name);
+        } else if(activeAuthor == id) {
+            setFilter({...filter, page: 1, author: ""});
+            setActiveAuthor(0);
+            setTitleAuthor("");
+        }
+        
+        setCurrentItems(0);
+    }
+
     const AuthorFilter = props => {
         return ( 
             <Accordion.Body>
                 <button
-                    onClick = {() => (
-                        setFilter({...filter, page: 1, author: props.id}),
-                        // setActiveAuthor(props.id),
-                        setTitleAuthor(props.author_name),
-                        setCurrentItems(0) 
-                    )}
-                    style={{border: "none", color: "black"}}
+                    onClick = {() => handleActiveAu(props.id, props.author_name)}
+                    className = {props.id == activeAuthor ? "activeFilter" : "noneActiveFilter"}
                 >
                     {props.author_name}
                 </button>
@@ -147,16 +163,27 @@ function Shop() {
             star: "5 Star"
         }
     ];
+
+    function handleActiveRate(id,rating_start) {
+        if(activeRating != id) {
+            setFilter({...filter, page: 1, rating_start: id});
+            setActiveRating(id);
+            setTitleRating(rating_start);
+        } else if(activeRating == id) {
+            setFilter({...filter, page: 1, rating_start: ""});
+            setActiveRating(0);
+            setTitleRating("");
+        }
+        
+        setCurrentItems(0);
+    }
+
     const RatingFilter = props => {
         return (
             <Accordion.Body>
-                <button style={{border: "none", fontSize: "18px"}}
-                    onClick = {() => (
-                        setFilter({...filter, page: 1, rating_start: props.id}),
-                        // setActiveRating(props.id),
-                        setTitleRating(props.star),
-                        setCurrentItems(0)
-                    )}                                        
+                <button 
+                    onClick = {() => handleActiveRate(props.id, props.star)}     
+                    className = {props.id == activeRating ? "activeFilter" : "noneActiveFilter"}                                   
                 >
                     {props.star}
                 </button>

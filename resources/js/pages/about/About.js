@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
 import '../../App.css';
+import './about.css';
 function About() {
     return (
         <Container fluid>
@@ -14,7 +15,7 @@ function About() {
 
             <Row className="justify-content-md-center " style={{padding: "30px"}}>
                 <Col xs lg={6} style={{fontSize: "30px"}}>
-                    <p style={{fontSize: "23px"}}>
+                    <p className="vanban1">
                         "Bookworm is an independent New York bookstore and language school with locations in Manhattan and Brooklyn. 
                         We specialize in travel books and language classes".
                     </p>
@@ -24,29 +25,29 @@ function About() {
 
             <Row className="justify-content-md-center " style={{padding: "30px"}}>
                 <Col xs lg={3}>
-                    <h2 style={{paddingBottom: "20px"}}>Our Story</h2>
-                    <p style={{fontSize: "20px"}}>
+                    <h2 className="h2vanban">Our Story</h2>
+                    <p className="vanban2">
                     The name Bookworm was taken from the original name for New York International Airport, which was renamed JFK in December 1963.
                     </p>
 
-                    <p style={{fontSize: "20px"}}>
+                    <p className="vanban2">
                         Our Manhattan store has just moved to the West Village. Our new location is 170 7th Avenue South, at the corner of Perry Street.
                     </p>
 
-                    <p style={{fontSize: "20px"}}>
+                    <p className="vanban2">
                         From March 2008 through May 2016, the store was located in the Flatiron District.
                     </p>
                 
                 </Col>
 
                 <Col xs lg={3}>
-                    <h2 style={{paddingBottom: "20px"}}>Our Vision</h2>
-                    <p style={{fontSize: "20px"}}>
+                    <h2 className="h2vanban">Our Vision</h2>
+                    <p className="vanban2">
                         One of the last travel bookstores in the country, our Manhattan store carries a range of 
                         guidebooks (all 10% off) to suit the needs and tastes of every traveller and budget.
                     </p>
 
-                    <p style={{fontSize: "20px"}}>
+                    <p className="vanban2">
                         We believe that a novel or travelogue can be just as valuable a key to a place as any guidebook, 
                         and our well-read, well-travelled staff is happy to make reading recommendations for any 
                         traveller, book lover, or gift giver.

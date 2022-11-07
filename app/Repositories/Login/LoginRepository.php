@@ -10,7 +10,7 @@ class LoginRepository
 {
     //lấy model tương ứng
     protected $loginRepo;
-    public function queryLogin(Request $request)
+    public function queryLogin(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
@@ -29,8 +29,7 @@ class LoginRepository
 
     public function queryLogout(Request $request)
     {
-        $user = Auth::user();
-        $user->tokens()->delete();
+        $user = Auth::user()->tokens()->delete();
         return response()->json([
             'message' => 'Logout',
             'status_code' => 204,

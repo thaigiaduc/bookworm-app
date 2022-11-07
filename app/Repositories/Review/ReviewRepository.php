@@ -43,10 +43,11 @@ class ReviewRepository
         return $review_data->paginate($request->item_per_page);
     }
 
-    // public function countRating(Request $request, $id)
-    // {
-    //     $review = Review::
-    // }
+    public function countRating($id)
+    {
+        $review = Review::selectRaw('book_id,rating_start,count(rating_start) as count_rating')->where('book_id',$id)->groupBy('book_id','rating_start')->orderBy('rating_start','asc');
+        return $review->get();
+    }
 
     
 }

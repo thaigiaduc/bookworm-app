@@ -33,6 +33,16 @@ class ReviewController extends Controller
         } 
     }
 
+    public function getCountRating($id)
+    {
+        try {
+            $review = $this->reivewRepo->countRating($id);
+            return response()->json($review,200);
+        } catch(\Exception $e) {
+            return response()->json($e->getMessage(),404);
+        }
+    }
+
     public function store(ReviewRequest $request)
     {
         try {

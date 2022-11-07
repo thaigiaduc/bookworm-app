@@ -11,9 +11,13 @@ import ReviewForm from './reviewForm/ReviewForm';
 
 function Product() {
   const id = useParams();
+  // lấy toàn bộ thông tin của sản phẩm
   const [productDetails, setProductDetails] = useState([]);
+  // lấy toàn bộ review của sản phẩm
   const [reviewDetails, setReviewDetails] = useState([]);
+  // lấy review theo star
   const [ratingStart, setRatingStart] = useState(0);
+  // tổng số sản phẩm
   const [total, setTotal] = useState(0);
   // số sản phẩm 1 trang 
   const [perPage, setPerPage] = useState(0);
@@ -27,12 +31,18 @@ function Product() {
   // paginate
   const [currentItems, setCurrentItems] = useState(null);
   const [itemOffset, setItemOffset] = useState(0);
+  // hiện số review theo só sao
+  const [showRate1, setShowRate1] = useState(0);
+  const [showRate2, setShowRate2] = useState(0);
+  const [showRate3, setShowRate3] = useState(0);
+  const [showRate4, setShowRate4] = useState(0);
+  const [showRate5, setShowRate5] = useState(0);
   // set title for sort
   const [titleDay, setTitleDay] = useState("Sort by Date: newest to oldest");
   const [titleRating, setTitleRating] = useState("");
   // filter sort
   const [filter, setFilter] = useState({
-    sortbyday: 'newest',
+    sortbyday: 'asc',
     page : 1
   })
   // set alert for add to cart
@@ -42,15 +52,13 @@ function Product() {
   const handleClose = () => setShow(false);
   const [showError, setShowError] = useState(false);
   const handleCloseError = () => setShowError(false);
-
-  const [reviewData, setReviewData] = useState({
-
-  });
   const navigate = useNavigate();
   const url = window.location.pathname;
   let reviewUrl = "/shop/product"+"/review/";
+  let countReviewUrl = "/shop/product/review/count/";
   for(let x in id) {
     reviewUrl += id[x];
+    countReviewUrl += id[x];
   }
   useEffect(() => {
     const queryParams = queryString.stringify(filter);
@@ -58,14 +66,48 @@ function Product() {
       try {
           const a = await productAPI.getProductDetails(url);
           const b = await productAPI.getReviewDetails(reviewUrl, queryParams);
-          setProductDetails(a.data);
-          setRatingStart(a.data[0].avg_rating);
-          setReviewDetails(b.data);
-          setTotal(b.total);
-          setPerPage(b.per_page);
-          setLastPage(b.last_page);
-          setTo(b.to);
-          setFrom(b.from);
+          const c = await productAPI.getReviewDetails(countReviewUrl);
+          if(a.status_code == 404) {
+            navigate("/shop/product");
+          } else {
+            setProductDetails(a.data);
+            setRatingStart(a.data[0].avg_rating);
+          }
+
+          if(b.status_code == 404) {
+            navigate("/shop/product"); 
+          } else {
+            setReviewDetails(b.data);  
+            setReviewDetails(b.data);
+            setTotal(b.total);
+            setPerPage(b.per_page);
+            setLastPage(b.last_page);
+            setTo(b.to);
+            setFrom(b.from);
+          }
+          
+          for(var j=0;j<c.length;j++) {
+            if(c[j].rating_start == 1) {
+              setShowRate1(c[j].count_rating);
+            }
+
+            if(c[j].rating_start == 2) {
+              setShowRate2(c[j].count_rating);
+            }
+
+            if(c[j].rating_start == 3) {
+              setShowRate3(c[j].count_rating);
+            }
+
+            if(c[j].rating_start == 4) {
+              setShowRate4(c[j].count_rating);
+            }
+
+            if(c[j].rating_start == 5) {
+              setShowRate5(c[j].count_rating);
+            }
+            
+          }
       } catch (error) {
           error => navigate('/shop/product');
       }
@@ -73,7 +115,6 @@ function Product() {
   product();
     
 }, [filter,itemOffset,show]);
-
   const CardItemProduct = props => {
     return (
       <React.Fragment>
@@ -150,13 +191,13 @@ function Product() {
 
     var flag = 0;
     var flag2 = 1;
-    var tam = {'book_id': bookID,'book_cover_photo': bookImg, 'book_price': bookPrice, 'book_quantity': bookQuantity, 'book_title': bookTitle, 'book_author': bookAuthorName};
+    var tam = {'book_id': bookID,'book_cover_photo': bookImg, 'price': bookPrice, 'quantity': bookQuantity, 'book_title': bookTitle, 'book_author': bookAuthorName};
     cartArray = JSON.parse(localStorage.getItem('cart'));
     for(var i=0;i<cartArray.length;i++) {
       if(cartArray[i].book_id == bookID) {
-        if((cartArray[i].book_quantity + bookQuantity) < 9 && (cartArray[i].book_quantity + bookQuantity) > 0) {
-          bookQuantity += cartArray[i].book_quantity;
-          cartArray[i].book_quantity = bookQuantity;
+        if((cartArray[i].quantity + bookQuantity) < 9 && (cartArray[i].quantity + bookQuantity) > 0) {
+          bookQuantity += cartArray[i].quantity;
+          cartArray[i].quantity = bookQuantity;
         } else {
           flag2 = 0;
         }
@@ -237,7 +278,7 @@ function Product() {
                             setCurrentItems(0)
                           )}
                         >
-                          <u>5 star ()</u>
+                          <u>5 star ({showRate5})</u>
                         </Button> | 
                         <Button variant="light"
                           onClick = {() => (
@@ -246,7 +287,7 @@ function Product() {
                             setCurrentItems(0)
                           )}
                         >
-                          <u>4 star () </u>
+                          <u>4 star ({showRate4}) </u>
                         </Button> | 
                         <Button variant="light"
                           onClick = {() => (
@@ -255,7 +296,7 @@ function Product() {
                             setCurrentItems(0)
                           )}
                         >
-                          <u>3 star ()</u>
+                          <u>3 star ({showRate3})</u>
                         </Button> | 
                         <Button variant="light"
                           onClick = {() => (
@@ -264,7 +305,7 @@ function Product() {
                             setCurrentItems(0)
                           )}
                         >
-                          <u>2 star ()</u>
+                          <u>2 star ({showRate2})</u>
                         </Button> | 
                         <Button variant="light"
                           onClick = {() => (
@@ -273,7 +314,7 @@ function Product() {
                             setCurrentItems(0)
                           )}
                         >
-                          <u>1 star ()</u>
+                          <u>1 star ({showRate1})</u>
                         </Button>
                         </Card.Text>
                   </Col>
@@ -291,7 +332,7 @@ function Product() {
                         <Dropdown.Item 
                             onClick = {() => (
                                 setFilter({...filter, page: 1, sortbyday: 'asc'}),
-                                setTitleSort("Sort by Date: newest to oldest"),
+                                setTitleDay("Sort by Date: newest to oldest"),
                                 setCurrentItems(0)
                             )}
                         >
@@ -300,7 +341,7 @@ function Product() {
                         <Dropdown.Item 
                             onClick = {() => (
                                 setFilter({...filter, page: 1,sortbyday: 'desc'}),
-                                setTitleSort("Sort by Date: oldest to newest"),
+                                setTitleDay("Sort by Date: oldest to newest"),
                                 setCurrentItems(0)
                             )}
                         >
@@ -451,8 +492,22 @@ function Product() {
       </>
     );
   }
-  return (
-      <Container fluid>
+
+  function SpinLoading() {
+    return (
+        <Row className="justify-content-md-center text-center">
+            <Col xs lg={9}>
+                <div className="spinner-border text-dark" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            </Col>
+        </Row>
+    );
+  }
+
+  function ProductPage() {
+    return (
+      <>
         <Modal show={show} onHide={handleClose}>
           <Alert variant="success">
             <Modal.Header closeButton>
@@ -489,6 +544,14 @@ function Product() {
           <ReviewProduct />
           : <ReviewProductNone />
         } 
+      </>
+    );
+  }
+  return (
+      <Container fluid>
+        {
+          productDetails.length !== 0 ? <ProductPage /> : <SpinLoading />
+        }
       </Container>      
     );
 }

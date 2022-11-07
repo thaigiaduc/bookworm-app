@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import React, { useState, createContext, useEffect } from 'react';
 import '../App.css';
 import Container from 'react-bootstrap/Container';
@@ -16,13 +16,23 @@ function Header() {
   const [fullName, setFullName] = useState("");
   const [checkLogin, setCheckLogin] = useState(false);
   const handleShow = () => setShow(true);
-  const navigate = useNavigate();
+  const [quantityProduct, setQuantityProduct] = useState(0);
+  
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem('user'));
     if(userInfo){
         setCheckLogin(true);
         setFullName(userInfo.first_name + " " + userInfo.last_name);
     }
+  }, []);
+
+  useEffect(() => {
+    var testArray = JSON.parse(localStorage.getItem('cart'));
+        if(testArray != null) {
+            setQuantityProduct(testArray.length);
+            console.log(quantityProduct);
+        }
+    
   }, []);
 
   function handleLogout() {
@@ -33,8 +43,7 @@ function Header() {
               localStorage.removeItem('user');
               localStorage.removeItem('token');
               setCheckLogin(false);
-              setFullname("");
-              navigate('/');
+              setFullName("");
           }
       } catch (error) {
           console.log(error);
@@ -68,7 +77,7 @@ function Header() {
                     <NavLink className={({ isActive }) =>
                       isActive ? 'activeClass' : 'bg-red-500 font-thin nav-link'
                     } to="/cart">
-                      Cart (3)
+                      Cart ({quantityProduct})
                     </NavLink>
                     {
                         checkLogin ? 
@@ -78,7 +87,7 @@ function Header() {
                       <Nav.Link>
                         <Login 
                           show = {show}
-                          text = {"sign in"}
+                          text = {"Sign In"}
                         />
                       </Nav.Link>
                     }

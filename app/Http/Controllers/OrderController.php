@@ -20,7 +20,7 @@ class OrderController extends Controller
         try {
             $order_array = $request->order_item;
             foreach($order_array as $item ) {
-                $order_amount += $item['quantity'];
+                $order_amount += $item['price']*$item['quantity'];
                 array_push($order_item, [
                     'book_id' => $item['book_id'],
                     'quantity' => $item['quantity'],

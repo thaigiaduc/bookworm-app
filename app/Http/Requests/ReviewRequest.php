@@ -36,11 +36,16 @@ class ReviewRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
 
+        // throw new HttpResponseException(response()->json([
+        //     'message' => 'Failed',
+        //     'data' => $validator->errors()
+        // ],422));
+
         throw new HttpResponseException(response()->json([
             'message' => 'Failed',
-            'data' => $validator->errors()
-        ],422));
-
+            'data' => $validator->errors(),
+            'status_code' => 422
+        ],200));
     }
 
     public function messages()

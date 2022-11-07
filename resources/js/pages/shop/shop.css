@@ -1,0 +1,22 @@
+.activeFilter {
+    background-color: darkgray;
+    width: 100%;
+    padding-left: 0px;
+    border: none;
+    text-align: left;
+}
+
+.noneActiveFilter {
+    border: none;
+    color: black;
+    width: 100%;
+    text-align: left;
+    background-color: white;
+}
+
+#cardItem {
+    width: 16rem; 
+    height: 450px; 
+    margin: 10px 0px 10px 30px; 
+    box-shadow: 5px 5px #DDDDDD;
+}
