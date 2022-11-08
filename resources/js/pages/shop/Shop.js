@@ -258,182 +258,189 @@ function Shop() {
         );   
     }
 
-    return (
-        <Container fluid>
-            <Row className="justify-content-md-center">
-                <Col xs lg={11} id="title"><b>Books</b></Col>
-            </Row>
+    const ProductMain = () => {
+        return (
+            <>
+                <Row className="justify-content-md-center">
+                    <Col xs lg={11} id="title"><b>Books</b></Col>
+                </Row>
 
-            <Row className="justify-content-md-center" style={{ paddingTop: "80px"}}>
-                <Col xs lg={2}>
-                    <p>
-                        Filter By { titleCategory !== "" ? titleCategory+"(category)" : "" } { titleAuthor !== "" ? titleAuthor+"(author)" : "" }  { titleRating !== "" ? titleRating+"(rating)" : "" }
-                    </p>
-                </Col>
+                <Row className="justify-content-md-center" style={{ paddingTop: "80px"}}>
+                    <Col xs lg={2}>
+                        <p>
+                            Filter By { titleCategory !== "" ? titleCategory+"(category)" : "" } { titleAuthor !== "" ? titleAuthor+"(author)" : "" }  { titleRating !== "" ? titleRating+"(rating)" : "" }
+                        </p>
+                    </Col>
 
-                <Col xs lg={7}>
-                    <p>Showing {from}-{to} of {total} books</p>
-                </Col>
+                    <Col xs lg={7}>
+                        <p>Showing {from}-{to} of {total} books</p>
+                    </Col>
 
-                <Col xs lg={1} style={{width: "auto"}}>
-                    <Dropdown>
-                        <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-                            {titleSort}
-                        </Dropdown.Toggle>
+                    <Col xs lg={1} style={{width: "auto"}}>
+                        <Dropdown>
+                            <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                                {titleSort}
+                            </Dropdown.Toggle>
 
-                        <Dropdown.Menu variant="light">
-                            <Dropdown.Item 
-                                onClick = {() => (
-                                    setFilter({...filter, page: 1,sortby: 'onsale'}),
-                                    setTitleSort("Sort by on sale"),
-                                    setCurrentItems(0)
-                                )}
-                            >
-                                Sort by on sale
-                            </Dropdown.Item>
-                            <Dropdown.Item 
-                                onClick = {() => (
-                                    setFilter({...filter, page: 1,sortby: 'popularity'}),
-                                    setTitleSort("Sort by popularity"),
-                                    setCurrentItems(0)
-                                )}
-                            >
-                                Sort by popularity
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                onClick = {() => (
-                                    setFilter({...filter, page: 1,sortby: 'price_up'}),
-                                    setTitleSort("Sort by price: low to high"),
-                                    setCurrentItems(0)
-                                )}
-                            >
-                                Sort by price: low to high
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                onClick = {() => (
-                                    setFilter({...filter, page: 1,sortby: 'price_down'}),
-                                    setTitleSort("Sort by price: high to low"),
-                                    setCurrentItems(0)
-                                )}
-                            >
-                                Sort by price: high to low
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Col>
-                
-                <Col xs lg={1}>
-                    <Dropdown>
-                        <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-                            Show {perPage}
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu variant="dark">
-                            <Dropdown.Item 
-                                
-                                onClick = {() => (
-                                    setFilter({...filter, page: 1,item_per_page: 5}),
-                                    setCurrentItems(0)
-                                )}    
-                            >
-                                Show 5
-                            </Dropdown.Item>
-                            <Dropdown.Item 
-                                
-                                onClick = {() => (
-                                    setFilter({...filter, page: 1,item_per_page: 15}),
-                                    setCurrentItems(0)    
-                                )}  
-                            >
-                                Show 15
-                            </Dropdown.Item>
-                            <Dropdown.Item 
-                                
-                                onClick = {() => (
-                                    setFilter({...filter, page: 1,item_per_page: 20}),
-                                    setCurrentItems(0)
-                                )}  
-                            >
-                                Show 20
-                            </Dropdown.Item>
-                            <Dropdown.Item 
-                                
-                                onClick = {() => (
-                                    setFilter({...filter, page: 1,item_per_page: 25}),
-                                    setCurrentItems(0)
-                                )}  
-                            >
-                                Show 25
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Col>
-            </Row>
-
-            <Row className="justify-content-md-center" style={{paddingTop: "20px"}}>
-                <Col xs lg={2}>
-                    <Accordion>
-                        <Row style={{paddingBottom: "30px"}}>
-                            <Col>
-                                <Accordion.Item eventKey="true">
-                                    <Accordion.Header>Category</Accordion.Header>
-                                    
-                                    {
-                                        category.map(cate => (
-                                            <CategoryFilter
-                                                category_name = {cate.category_name}
-                                                id = {cate.id}
-                                                key = {cate.id}
-                                            />
-                                            
-                                        ))
-                                    }
-                                   
-                                </Accordion.Item>
-                            </Col>
-                        </Row>
+                            <Dropdown.Menu variant="light">
+                                <Dropdown.Item 
+                                    onClick = {() => (
+                                        setFilter({...filter, page: 1,sortby: 'onsale'}),
+                                        setTitleSort("Sort by on sale"),
+                                        setCurrentItems(0)
+                                    )}
+                                >
+                                    Sort by on sale
+                                </Dropdown.Item>
+                                <Dropdown.Item 
+                                    onClick = {() => (
+                                        setFilter({...filter, page: 1,sortby: 'popularity'}),
+                                        setTitleSort("Sort by popularity"),
+                                        setCurrentItems(0)
+                                    )}
+                                >
+                                    Sort by popularity
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                    onClick = {() => (
+                                        setFilter({...filter, page: 1,sortby: 'price_up'}),
+                                        setTitleSort("Sort by price: low to high"),
+                                        setCurrentItems(0)
+                                    )}
+                                >
+                                    Sort by price: low to high
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                    onClick = {() => (
+                                        setFilter({...filter, page: 1,sortby: 'price_down'}),
+                                        setTitleSort("Sort by price: high to low"),
+                                        setCurrentItems(0)
+                                    )}
+                                >
+                                    Sort by price: high to low
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Col>
                     
-                        <Row style={{paddingBottom: "30px"}}>
-                            <Col>
-                                <Accordion.Item eventKey="1">
-                                    <Accordion.Header>Author</Accordion.Header>
-                                    {
-                                        author.map(au => (
-                                            <AuthorFilter
-                                                author_name = {au.author_name}
-                                                id = {au.id}
-                                                key = {au.id}
-                                            />
-                                        ))
-                                    }
+                    <Col xs lg={1}>
+                        <Dropdown>
+                            <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                                Show {perPage}
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu variant="dark">
+                                <Dropdown.Item 
                                     
-                                </Accordion.Item>
-                            </Col>
-                        </Row>
-                        
-                        <Row className="justify-content-md-center" style={{paddingBottom: "30px"}}>
-                            <Col>
-                                <Accordion.Item eventKey="2">
-                                    <Accordion.Header>Rating Review</Accordion.Header>
+                                    onClick = {() => (
+                                        setFilter({...filter, page: 1,item_per_page: 5}),
+                                        setCurrentItems(0)
+                                    )}    
+                                >
+                                    Show 5
+                                </Dropdown.Item>
+                                <Dropdown.Item 
+                                    
+                                    onClick = {() => (
+                                        setFilter({...filter, page: 1,item_per_page: 15}),
+                                        setCurrentItems(0)    
+                                    )}  
+                                >
+                                    Show 15
+                                </Dropdown.Item>
+                                <Dropdown.Item 
+                                    
+                                    onClick = {() => (
+                                        setFilter({...filter, page: 1,item_per_page: 20}),
+                                        setCurrentItems(0)
+                                    )}  
+                                >
+                                    Show 20
+                                </Dropdown.Item>
+                                <Dropdown.Item 
+                                    
+                                    onClick = {() => (
+                                        setFilter({...filter, page: 1,item_per_page: 25}),
+                                        setCurrentItems(0)
+                                    )}  
+                                >
+                                    Show 25
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Col>
+                </Row>
+
+                <Row className="justify-content-md-center" style={{paddingTop: "20px"}}>
+                    <Col xs lg={2}>
+                        <Accordion>
+                            <Row style={{paddingBottom: "30px"}}>
+                                <Col>
+                                    <Accordion.Item eventKey="true">
+                                        <Accordion.Header>Category</Accordion.Header>
+                                        
                                         {
-                                            ratingArray.map(rate => (
-                                                <RatingFilter 
-                                                    id = {rate.id}
-                                                    star = {rate.star}
-                                                    key = {rate.id}
+                                            category.map(cate => (
+                                                <CategoryFilter
+                                                    category_name = {cate.category_name}
+                                                    id = {cate.id}
+                                                    key = {cate.id}
+                                                />
+                                                
+                                            ))
+                                        }
+                                    
+                                    </Accordion.Item>
+                                </Col>
+                            </Row>
+                        
+                            <Row style={{paddingBottom: "30px"}}>
+                                <Col>
+                                    <Accordion.Item eventKey="1">
+                                        <Accordion.Header>Author</Accordion.Header>
+                                        {
+                                            author.map(au => (
+                                                <AuthorFilter
+                                                    author_name = {au.author_name}
+                                                    id = {au.id}
+                                                    key = {au.id}
                                                 />
                                             ))
                                         }
-                                </Accordion.Item>
-                            </Col>
-                        </Row>
-                    </Accordion>
-                </Col>
+                                        
+                                    </Accordion.Item>
+                                </Col>
+                            </Row>
+                            
+                            <Row className="justify-content-md-center" style={{paddingBottom: "30px"}}>
+                                <Col>
+                                    <Accordion.Item eventKey="2">
+                                        <Accordion.Header>Rating Review</Accordion.Header>
+                                            {
+                                                ratingArray.map(rate => (
+                                                    <RatingFilter 
+                                                        id = {rate.id}
+                                                        star = {rate.star}
+                                                        key = {rate.id}
+                                                    />
+                                                ))
+                                            }
+                                    </Accordion.Item>
+                                </Col>
+                            </Row>
+                        </Accordion>
+                    </Col>
 
-                <Col xs lg={9}>
-                    <ProductPack />
-                </Col>
-            </Row>
+                    <Col xs lg={9}>
+                        <ProductPack />
+                    </Col>
+                </Row>
+            </>
+        );
+    }
+    return (
+        <Container fluid>
+            <ProductMain />
         </Container>     
     );
 }

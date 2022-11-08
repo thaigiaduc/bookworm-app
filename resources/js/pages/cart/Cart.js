@@ -59,16 +59,19 @@ function Cart() {
                         function alertTime() {
                             setCartItem(null);
                             setTotal(0);
-                            localStorage.removeItem('cart');
                             alert('success');
                             navigate(`/home`);
                             clearTimeout(time);
                         }
                         if(a.status_code == 201) {
                             const time = setTimeout(alertTime,10000);
+                        } else {
+                            alert("error, book_id doesn exist");
+                            localStorage.removeItem('cart');
+                            window.location.reload();
                         }
                     } catch (error) {
-                        return alert(a.data);
+                        console.log(error);
                     }
                 }
                 Order();
