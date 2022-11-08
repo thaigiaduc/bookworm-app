@@ -19,6 +19,13 @@ function Header() {
   const [quantityProduct, setQuantityProduct] = useState(0);
   
   useEffect(() => {
+    
+    const arr = JSON.parse(localStorage.getItem('cart'));
+    if(arr) {
+      setQuantityProduct(arr.length);
+    }
+    
+    // setQuantityProduct(test);
     const userInfo = JSON.parse(localStorage.getItem('user'));
     if(userInfo){
         setCheckLogin(true);
@@ -26,15 +33,7 @@ function Header() {
     }
   }, []);
 
-  useEffect(() => {
-    var testArray = JSON.parse(localStorage.getItem('cart'));
-        if(testArray != null) {
-            setQuantityProduct(testArray.length);
-            console.log(quantityProduct);
-        }
-    
-  }, []);
-
+  
   function handleLogout() {
     const Logout = async () => {
       try {

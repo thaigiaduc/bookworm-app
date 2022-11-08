@@ -1,0 +1,11 @@
+#buttonPlus {
+    border: none;
+    font-size: 20px; 
+    margin: 0px 80px 0px 0px;
+}
+
+#buttonMinus {
+    border: none; 
+    font-size: 20px;
+    margin: 0px 0px 0px 80px;
+}

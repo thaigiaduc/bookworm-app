@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {Container, Button, Row, Col, Card, ButtonGroup} from 'react-bootstrap';
 import orderAPI from '../../services/orderAPI';
 import '../../App.css';
+import './cart.css';
 import Login from '../login/Login'
 function Cart() { 
     const [cartItem, setCartItem] = useState(JSON.parse(localStorage.getItem('cart')));
@@ -124,6 +125,24 @@ function Cart() {
         }
     }
 
+    const ShowCartNone = props => {
+        return (
+            <Card>
+                <Card.Body>
+                    <Row>
+                        <Col>
+                            <Row className="justify-content-md-center text-center">
+                                <Col xs lg={8}> 
+                                    <h2>Empty Cart</h2>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                </Card.Body>
+            </Card>
+        );
+    }
+
     const ShowCart = props => {
         return (
             <Card>
@@ -182,6 +201,7 @@ function Cart() {
             </Card>
         );
     }
+
     return (
         <Container fluid style={{paddingBottom: "350px"}}>
             <Row className="justify-content-md-center">
@@ -207,7 +227,7 @@ function Cart() {
                         </Row>
                     </Card.Header>
                     {
-                        cartItem === null ? "" :
+                        cartItem === null ? <ShowCartNone /> :
                         cartItem.map((item,index) => (
                             <ShowCart
                                 book_id = {item.book_id}
@@ -229,7 +249,7 @@ function Cart() {
                             <Row className="justify-content-md-center text-center">
                                 <Col xs lg={8}>
                                     <Card.Text><strong style={{fontSize: "30px"}}>{"$"+total.toFixed(2)}</strong></Card.Text>
-                                    <Card.Text><Button style={{width: "260px"}} onClick = { (e) => placeOrder(e) }>Place order</Button></Card.Text>
+                                    <Card.Text><Button style={{width: "260px"}} variant="secondary" onClick = { (e) => placeOrder(e) }>Place order</Button></Card.Text>
                                 </Col>
                             </Row>
                         </Card.Body>

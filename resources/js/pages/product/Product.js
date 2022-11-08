@@ -1,8 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {Container, ButtonGroup, Button, Row, Col, Card, Dropdown, Form, Modal, Alert} from 'react-bootstrap';
 import '../../App.css';
+import './product.css';
+import Header from '../../layouts/Header';
 import ReactPaginate from 'react-paginate';
 import productAPI from '../../services/productAPI';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -10,6 +12,7 @@ import queryString from 'query-string';
 import ReviewForm from './reviewForm/ReviewForm';
 
 function Product() {
+  // lấy id của sản phẩm
   const id = useParams();
   // lấy toàn bộ thông tin của sản phẩm
   const [productDetails, setProductDetails] = useState([]);
@@ -49,9 +52,7 @@ function Product() {
   const [cartAlert, setCartAlert] = useState(false);
   // modal alert
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
   const [showError, setShowError] = useState(false);
-  const handleCloseError = () => setShowError(false);
   const navigate = useNavigate();
   const url = window.location.pathname;
   let reviewUrl = "/shop/product"+"/review/";
@@ -154,9 +155,22 @@ function Product() {
               <Card.Body>
                 <Row className="justify-content-md-center text-center">
                   <Col>
+                      {
+                        show ? 
+                        <Alert variant="success">                       
+                          Add to cart success 
+                        </Alert> : ""
+                      }
+                      {
+                        showError ? 
+                        <Alert variant="danger">
+                            Add to cart failed 
+                        </Alert> : ""
+                      }
                     <Card.Text>
                       Quantity
                     </Card.Text>
+                    
                     <Row className="justify-content-md-center text-center"> 
                       <Col xs lg={8}>
                         <ButtonGroup style={{backgroundColor: "#f8f9fa"}}>
@@ -209,19 +223,21 @@ function Product() {
     if(flag == 0) {
       cartArray.push(tam);
       setShow(true);
+      setShowError(false);
     } 
 
     if(flag == 1 && flag2 == 1) {
       setShow(true);
+      setShowError(false);
     }
-    console.log(flag2);
+    
     if(flag == 1 && flag2 == 0) {
       setShow(false);
       setShowError(true);
     }
     localStorage.setItem('cart',JSON.stringify(cartArray));
     setQuantity(quantity = 1);
-    // setTimeout(setShow(false), 10000);
+   
     return true;
   }
 
@@ -508,21 +524,6 @@ function Product() {
   function ProductPage() {
     return (
       <>
-        <Modal show={show} onHide={handleClose}>
-          <Alert variant="success">
-            <Modal.Header closeButton>
-              Add to cart success 
-            </Modal.Header>
-          </Alert>
-        </Modal>
-
-        <Modal show={showError} onHide={handleCloseError}>
-          <Alert variant="danger">
-            <Modal.Header closeButton>
-              Add to cart failed 
-            </Modal.Header>
-          </Alert>
-        </Modal>
         {
           productDetails.map((item,index) => (
             <CardItemProduct
