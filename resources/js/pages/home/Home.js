@@ -9,6 +9,7 @@ import homeAPI from '../../services/homeAPI';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
+// biến responsive của thư viện react-multi-carousel
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -30,13 +31,19 @@ const responsive = {
 };
 
 function Home() {
+    // state lấy ra book onsale
     const [bookOnSale, setBookOnSale] = useState([]);
+    // state lấy ra book recommended
     const [bookRecommended, setBookRecommended] = useState([]);
+    // state lấy ra book popular
     const [bookPopular, setBookPopular] = useState([]);
+    // state set thay đổi trạng thái book recommended or popular
     const [recommended, setRecommended] = useState(true);
+    // state default book (book mặc định)
     const [defaultBook, setDefaultBook] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {
+        // arrow function gọi tới axios trong homeAPI
         const home = async () => {
             try {
                 const onsale = await homeAPI.getBookOnSale();
@@ -53,6 +60,7 @@ function Home() {
         home();
     }, []);
 
+    // arrow function về UI carousel item
     const CardItemCarousel = props => {
         return (
             <Card id="cartItemCarou" onClick={ () =>(navigate(`/shop/product/${props.book_id}`)) }>
@@ -74,6 +82,7 @@ function Home() {
         ); 
     }
     
+    // UI về book featured
     const CardItemFeatured = props => {
         return (
             <Col xs lg={3} style={{width: "auto"}}>
@@ -97,17 +106,20 @@ function Home() {
         ); 
     }
 
+    // hàm thay đổi trạng thái book sang recommended book
     const recommendedBookClick = () => {
         setDefaultBook(bookRecommended);
         setRecommended(true);
     };
 
+    // hàm thay đổi trạng thái book sang popular book
     const popularBookClick = () => {
         setDefaultBook(bookPopular);
         setRecommended(false);
     };
     
     return (
+        // UI homePage
         <Container fluid>
             <Row className="justify-content-md-center">
                 <Col xs lg={3}>

@@ -11,6 +11,7 @@ class CategoryRepository
     //lấy model tương ứng
     protected $categoryRepo;
 
+    // query lấy ra danh sách toàn bộ danh mục
     public function getAll()
     {
         $category = Category::orderBy('category.id','asc')->get();

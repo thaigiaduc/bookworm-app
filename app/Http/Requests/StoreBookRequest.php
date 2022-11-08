@@ -34,6 +34,7 @@ class StoreBookRequest extends FormRequest
         ];
     }
 
+    // trả response về cho client khi order
     public function failedValidation(Validator $validator)
     {
 
@@ -45,6 +46,7 @@ class StoreBookRequest extends FormRequest
 
     }
 
+    // trả về message khi order lỗi
     public function messages()
 	{
 	   return [

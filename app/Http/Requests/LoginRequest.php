@@ -30,6 +30,7 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    // trả response về cho client
     public function failedValidation(Validator $validator)
     {
 
@@ -41,6 +42,7 @@ class LoginRequest extends FormRequest
 
     }
 
+    // quăng ra message khi có lỗi
     public function messages()
     {
         return [

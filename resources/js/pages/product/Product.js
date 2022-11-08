@@ -53,8 +53,11 @@ function Product() {
   // modal alert
   const [show, setShow] = useState(false);
   const [showError, setShowError] = useState(false);
+  // navigate chuyển trang
   const navigate = useNavigate();
+  // lấy url 
   const url = window.location.pathname;
+  // lưu trữ url để import vào hàm bên productAPI
   let reviewUrl = "/shop/product"+"/review/";
   let countReviewUrl = "/shop/product/review/count/";
   for(let x in id) {
@@ -62,7 +65,8 @@ function Product() {
     countReviewUrl += id[x];
   }
   useEffect(() => {
-    const queryParams = queryString.stringify(filter);
+    const queryParams = queryString.stringify(filter); // convert chuỗi filter
+    // hàm xử lý gửi request và response qua productAPI
     const product = async () => {
       try {
           const a = await productAPI.getProductDetails(url);
@@ -114,8 +118,9 @@ function Product() {
       }
   }
   product();
-    
 }, [filter,itemOffset,show]);
+
+  // UI về card/item book theo id
   const CardItemProduct = props => {
     return (
       <React.Fragment>
@@ -141,10 +146,8 @@ function Product() {
               <Card.Text>
                 By (author) {props.author_name}
               </Card.Text>
-            </Card>
-            
+            </Card>        
           </Col>
-
           <Col xs lg={4}>
             <Card>
               <Card.Header>
@@ -186,17 +189,16 @@ function Product() {
                       </Col>
                     </Row>                  
                   </Col>
-                </Row>
-                
+                </Row>   
               </Card.Body>
             </Card>
           </Col>
         </Row>
-      </React.Fragment>
-      
+      </React.Fragment>    
     );
   }
 
+  // hàm xử lý add to cart using localstorage
   const handleAddToCart = (bookID,bookImg, bookPrice, bookQuantity, bookTitle, bookAuthorName) => {
     let cartArray = [];
     if(localStorage.getItem('cart') === null) {
@@ -215,7 +217,6 @@ function Product() {
         } else {
           flag2 = 0;
         }
-
         flag = 1
       }
     }   
@@ -237,10 +238,10 @@ function Product() {
     }
     localStorage.setItem('cart',JSON.stringify(cartArray));
     setQuantity(quantity = 1);
-   
     return true;
   }
 
+  // UI lưu thông tin của review
   const ReviewProductDetails = props => {
     return (
       <Card>
@@ -265,6 +266,7 @@ function Product() {
     );
   }
 
+  // UI toàn bộ danh sách review
   function ReviewProduct() {
     return (
       <React.Fragment>
@@ -457,17 +459,16 @@ function Product() {
                   </Col>
                 </Row>
             </Card>
-          </Col>
-          
+          </Col>    
           <Col xs lg={4}>
             <ReviewForm />
           </Col>
         </Row>
       </React.Fragment>
-    );
-    
+    );  
   } 
 
+  // function hiện ra khi book đó không có review nào
   function ReviewProductNone() {
     return (
       <>
@@ -509,6 +510,7 @@ function Product() {
     );
   }
 
+  // tạo hiệu ứng quay để che đậy sự load lâu của trang
   function SpinLoading() {
     return (
         <Row className="justify-content-md-center text-center">
@@ -521,6 +523,7 @@ function Product() {
     );
   }
 
+  // tổng hợp cái UI lại
   function ProductPage() {
     return (
       <>

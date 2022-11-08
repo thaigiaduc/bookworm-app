@@ -13,12 +13,6 @@ class BookRepository
     //lấy model tương ứng
     protected $bookRepo;
     
-    public function all()
-    {
-        $books = Book::orderBy('book.id')->paginate(12);
-        return new BookCollection($books);
-    }
-
     // lấy details book
     public function getQueryBookDetails($id)
     {

@@ -40,6 +40,7 @@ class Book extends Model
         return $this->hasMany(review::class);
     }
 
+    // lấy final_price của book
     public static function getFinalPrice($id)
     {
         $books = Book::selectRaw('case
@@ -58,6 +59,7 @@ class Book extends Model
         return $test;
     }
 
+    // lấy ra sub_price của book (subprice = book_price - discount_price)
     public static function getSubPrice($id)
     {
         $books = Book::selectRaw('case
@@ -76,6 +78,7 @@ class Book extends Model
         return $test;
     }
 
+    // lấy ra số sao trung bình của book
     public static function getAvgRating($id)
     {
         $books = Book::selectRaw('Round(avg(rating_start), 2) as avg_rating_start')

@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Route;
 
 // Route::apiResource('books', BookAPIController::class);
 
+// route for homeAPI
 Route::prefix('home')->group(function() {
     Route::name('home.')->group(function() {
         Route::get('/sale', [BookController::class, 'getBookOnSale']);
@@ -39,13 +40,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('session', [LoginController::class, 'logout'])->name('api.logout');
     
 });
-
+// route for shopAPI
 Route::prefix('shop')->group(function () {
     Route::name('shop.')->group(function() {
         Route::get('/', [BookController::class, 'index']);
         Route::get('/author', [AuthorController::class, 'getAuthor']);
         Route::get('/category', [CategoryController::class, 'getCategory']);
     });
+    // route for productAPI
     Route::prefix('product')->group(function () {
         Route::name('product.')->group(function() {
             Route::get('/{id}', [BookController::class, 'show']);
@@ -56,7 +58,7 @@ Route::prefix('shop')->group(function () {
         });   
     }); 
 });
-
+// route for loginAPI 
 Route::prefix('authenticate') -> name('login.') -> group(function(){
     Route::name('authenticate.')->group(function() {
         Route::post('/login', [LoginController::class, 'login']);

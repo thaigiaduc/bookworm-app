@@ -12295,25 +12295,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Footer() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("footer", {
-    className: "App-footer",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__.default, {
-      fluid: true,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__.default, {
-        xs: "auto",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-          style: {
-            fontSize: "40px"
-          },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
-            src: "../../assets/bookworm_icon.svg"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-          children: ["BOOKWORM", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), "Address: 51/3 B\xE3i S\u1EADy, Ph\u01B0\u1EDDng 1, Qu\u1EADn 6", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), "Phone: 0779636115"]
-        })]
+  return (
+    /*#__PURE__*/
+    // UI của footer
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("footer", {
+      className: "App-footer",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__.default, {
+        fluid: true,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__.default, {
+          xs: "auto",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
+            style: {
+              fontSize: "40px"
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+              src: "../../assets/bookworm_icon.svg"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
+            children: ["BOOKWORM", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), "Address: 364 C\u1ED9ng H\xF2a, Qu\u1EADn T\xE2n B\xECnh", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), "Phone: 0779636115"]
+          })]
+        })
       })
     })
-  });
+  );
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Footer);
@@ -12377,24 +12381,29 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Header() {
+  //  set state modal signin
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
       show = _useState2[0],
-      setShow = _useState2[1];
+      setShow = _useState2[1]; // state set fullname cho tên (first_name + last_name)
+
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
       fullName = _useState4[0],
-      setFullName = _useState4[1];
+      setFullName = _useState4[1]; // state check đã đăng nhập hay chưa
+
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState6 = _slicedToArray(_useState5, 2),
       checkLogin = _useState6[0],
-      setCheckLogin = _useState6[1];
+      setCheckLogin = _useState6[1]; // hàm show modal signIn
+
 
   var handleShow = function handleShow() {
     return setShow(true);
-  };
+  }; // lấy ra số lượng sản phẩm trong cart
+
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
       _useState8 = _slicedToArray(_useState7, 2),
@@ -12402,11 +12411,12 @@ function Header() {
       setQuantityProduct = _useState8[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    // set số lượng dựa trên localstorage cart
     var arr = JSON.parse(localStorage.getItem('cart'));
 
     if (arr) {
       setQuantityProduct(arr.length);
-    } // setQuantityProduct(test);
+    } // set fullname dựa trên localstorage user
 
 
     var userInfo = JSON.parse(localStorage.getItem('user'));
@@ -12415,7 +12425,7 @@ function Header() {
       setCheckLogin(true);
       setFullName(userInfo.first_name + " " + userInfo.last_name);
     }
-  }, []);
+  }, []); // hàm xử lý logout khi đã đăng nhập
 
   function handleLogout() {
     var Logout = /*#__PURE__*/function () {
@@ -12463,76 +12473,80 @@ function Header() {
     Logout();
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("header", {
-    className: "App-header",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Navbar__WEBPACK_IMPORTED_MODULE_6__.default, {
-      collapseOnSelect: true,
-      fixed: "top",
-      expand: "lg",
-      bg: "light",
-      variant: "light",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_bootstrap_Container__WEBPACK_IMPORTED_MODULE_7__.default, {
-        fluid: true,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Navbar__WEBPACK_IMPORTED_MODULE_6__.default.Brand, {
-          as: react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link,
-          to: "/",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-            src: "../../assets/bookworm_icon.svg"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Navbar__WEBPACK_IMPORTED_MODULE_6__.default.Toggle, {
-          "aria-controls": "responsive-navbar-nav"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Navbar__WEBPACK_IMPORTED_MODULE_6__.default.Collapse, {
-          id: "responsive-navbar-nav",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_9__.default, {
-            className: "justify-content-end flex-grow-1 pe-3",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink, {
-              className: function className(_ref2) {
-                var isActive = _ref2.isActive;
-                return isActive ? 'activeClass' : 'bg-red-500 font-thin nav-link';
-              },
-              to: "/home",
-              children: "Home"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink, {
-              className: function className(_ref3) {
-                var isActive = _ref3.isActive;
-                return isActive ? 'activeClass' : 'bg-red-500 font-thin nav-link';
-              },
-              to: "/shop",
-              children: "Shop"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink, {
-              className: function className(_ref4) {
-                var isActive = _ref4.isActive;
-                return isActive ? 'activeClass' : 'bg-red-500 font-thin nav-link';
-              },
-              to: "/about",
-              children: "About"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink, {
-              className: function className(_ref5) {
-                var isActive = _ref5.isActive;
-                return isActive ? 'activeClass' : 'bg-red-500 font-thin nav-link';
-              },
-              to: "/cart",
-              children: ["Cart (", quantityProduct, ")"]
-            }), checkLogin ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_NavDropdown__WEBPACK_IMPORTED_MODULE_10__.default, {
-              title: fullName,
-              id: "navbarScrollingDropdown",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_NavDropdown__WEBPACK_IMPORTED_MODULE_10__.default.Item, {
-                onClick: function onClick() {
-                  return handleLogout();
+  return (
+    /*#__PURE__*/
+    // UI navigation của header
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("header", {
+      className: "App-header",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Navbar__WEBPACK_IMPORTED_MODULE_6__.default, {
+        collapseOnSelect: true,
+        fixed: "top",
+        expand: "lg",
+        bg: "light",
+        variant: "light",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_bootstrap_Container__WEBPACK_IMPORTED_MODULE_7__.default, {
+          fluid: true,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Navbar__WEBPACK_IMPORTED_MODULE_6__.default.Brand, {
+            as: react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link,
+            to: "/",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+              src: "../../assets/bookworm_icon.svg"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Navbar__WEBPACK_IMPORTED_MODULE_6__.default.Toggle, {
+            "aria-controls": "responsive-navbar-nav"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Navbar__WEBPACK_IMPORTED_MODULE_6__.default.Collapse, {
+            id: "responsive-navbar-nav",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_9__.default, {
+              className: "justify-content-end flex-grow-1 pe-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink, {
+                className: function className(_ref2) {
+                  var isActive = _ref2.isActive;
+                  return isActive ? 'activeClass' : 'bg-red-500 font-thin nav-link';
                 },
-                children: "Logout"
-              })
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_9__.default.Link, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_pages_login_Login__WEBPACK_IMPORTED_MODULE_3__.default, {
-                show: show,
-                text: "Sign In"
-              })
-            })]
-          })
-        })]
+                to: "/home",
+                children: "Home"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink, {
+                className: function className(_ref3) {
+                  var isActive = _ref3.isActive;
+                  return isActive ? 'activeClass' : 'bg-red-500 font-thin nav-link';
+                },
+                to: "/shop",
+                children: "Shop"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink, {
+                className: function className(_ref4) {
+                  var isActive = _ref4.isActive;
+                  return isActive ? 'activeClass' : 'bg-red-500 font-thin nav-link';
+                },
+                to: "/about",
+                children: "About"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.NavLink, {
+                className: function className(_ref5) {
+                  var isActive = _ref5.isActive;
+                  return isActive ? 'activeClass' : 'bg-red-500 font-thin nav-link';
+                },
+                to: "/cart",
+                children: ["Cart (", quantityProduct, ")"]
+              }), checkLogin ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_NavDropdown__WEBPACK_IMPORTED_MODULE_10__.default, {
+                title: fullName,
+                id: "navbarScrollingDropdown",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_NavDropdown__WEBPACK_IMPORTED_MODULE_10__.default.Item, {
+                  onClick: function onClick() {
+                    return handleLogout();
+                  },
+                  children: "Logout"
+                })
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_9__.default.Link, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_pages_login_Login__WEBPACK_IMPORTED_MODULE_3__.default, {
+                  show: show,
+                  text: "Sign In"
+                })
+              })]
+            })
+          })]
+        })
       })
     })
-  });
+  );
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Header);
@@ -12560,25 +12574,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Error() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__.default, {
-    fluid: true,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__.default, {
-      className: "justify-content-md-center text-center",
-      style: {
-        paddingBottom: "260px"
-      },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-        xs: true,
-        lg: 12,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
-          style: {
-            marginTop: "300px"
-          },
-          children: "404 PAGE"
+  return (
+    /*#__PURE__*/
+    // UI trả về trang 404
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__.default, {
+      fluid: true,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__.default, {
+        className: "justify-content-md-center text-center",
+        style: {
+          paddingBottom: "260px"
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
+          xs: true,
+          lg: 12,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
+            style: {
+              marginTop: "300px"
+            },
+            children: "404 PAGE"
+          })
         })
       })
     })
-  });
+  );
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Error);
@@ -12611,83 +12629,87 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function About() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
-    fluid: true,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-      className: "justify-content-md-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
-        xs: true,
-        lg: 9,
-        id: "title",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("b", {
-          children: "About Us"
+  return (
+    /*#__PURE__*/
+    // UI của aboutPage
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__.default, {
+      fluid: true,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
+        className: "justify-content-md-center",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
+          xs: true,
+          lg: 9,
+          id: "title",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("b", {
+            children: "About Us"
+          })
         })
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-      className: "justify-content-md-center text-center",
-      style: {
-        padding: "20px"
-      },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
-        xs: true,
-        lg: 9,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
-          children: "Welcome to Bookworm"
-        })
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-      className: "justify-content-md-center ",
-      style: {
-        padding: "30px"
-      },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
-        xs: true,
-        lg: 6,
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
+        className: "justify-content-md-center text-center",
         style: {
-          fontSize: "30px"
+          padding: "20px"
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "vanban1",
-          children: "\"Bookworm is an independent New York bookstore and language school with locations in Manhattan and Brooklyn. We specialize in travel books and language classes\"."
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
+          xs: true,
+          lg: 9,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+            children: "Welcome to Bookworm"
+          })
         })
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-      className: "justify-content-md-center ",
-      style: {
-        padding: "30px"
-      },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
-        xs: true,
-        lg: 3,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
-          className: "h2vanban",
-          children: "Our Story"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "vanban2",
-          children: "The name Bookworm was taken from the original name for New York International Airport, which was renamed JFK in December 1963."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "vanban2",
-          children: "Our Manhattan store has just moved to the West Village. Our new location is 170 7th Avenue South, at the corner of Perry Street."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "vanban2",
-          children: "From March 2008 through May 2016, the store was located in the Flatiron District."
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
-        xs: true,
-        lg: 3,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
-          className: "h2vanban",
-          children: "Our Vision"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "vanban2",
-          children: "One of the last travel bookstores in the country, our Manhattan store carries a range of guidebooks (all 10% off) to suit the needs and tastes of every traveller and budget."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "vanban2",
-          children: "We believe that a novel or travelogue can be just as valuable a key to a place as any guidebook, and our well-read, well-travelled staff is happy to make reading recommendations for any traveller, book lover, or gift giver."
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
+        className: "justify-content-md-center ",
+        style: {
+          padding: "30px"
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
+          xs: true,
+          lg: 6,
+          style: {
+            fontSize: "30px"
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+            className: "vanban1",
+            children: "\"Bookworm is an independent New York bookstore and language school with locations in Manhattan and Brooklyn. We specialize in travel books and language classes\"."
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
+        className: "justify-content-md-center ",
+        style: {
+          padding: "30px"
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
+          xs: true,
+          lg: 3,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+            className: "h2vanban",
+            children: "Our Story"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+            className: "vanban2",
+            children: "The name Bookworm was taken from the original name for New York International Airport, which was renamed JFK in December 1963."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+            className: "vanban2",
+            children: "Our Manhattan store has just moved to the West Village. Our new location is 170 7th Avenue South, at the corner of Perry Street."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+            className: "vanban2",
+            children: "From March 2008 through May 2016, the store was located in the Flatiron District."
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
+          xs: true,
+          lg: 3,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+            className: "h2vanban",
+            children: "Our Vision"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+            className: "vanban2",
+            children: "One of the last travel bookstores in the country, our Manhattan store carries a range of guidebooks (all 10% off) to suit the needs and tastes of every traveller and budget."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+            className: "vanban2",
+            children: "We believe that a novel or travelogue can be just as valuable a key to a place as any guidebook, and our well-read, well-travelled staff is happy to make reading recommendations for any traveller, book lover, or gift giver."
+          })]
         })]
       })]
-    })]
-  });
+    })
+  );
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (About);
@@ -12813,7 +12835,7 @@ function Cart() {
     if (localStorage.getItem('cart') !== null && localStorage.getItem('user') !== null && localStorage.getItem('token') !== null) {
       var Order = /*#__PURE__*/function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-          var alertTime, orderArray, userArray, userid, mang, i, a, _time;
+          var alertTime, orderArray, userArray, userid, mang, i, _a, _time;
 
           return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
             while (1) {
@@ -12824,6 +12846,7 @@ function Cart() {
                   alertTime = function alertTime() {
                     setCartItem(null);
                     setTotal(0);
+                    localStorage.removeItem('cart');
                     alert('success');
                     navigate("/home");
                     clearTimeout(time);
@@ -12850,14 +12873,10 @@ function Cart() {
                   });
 
                 case 11:
-                  a = _context.sent;
+                  _a = _context.sent;
 
-                  if (a.status_code == 201) {
+                  if (_a.status_code == 201) {
                     _time = setTimeout(alertTime, 10000);
-                  } else {
-                    alert("error, book_id doesn exist");
-                    localStorage.removeItem('cart');
-                    window.location.reload();
                   }
 
                   _context.next = 18;
@@ -12866,7 +12885,7 @@ function Cart() {
                 case 15:
                   _context.prev = 15;
                   _context.t0 = _context["catch"](0);
-                  console.log(_context.t0);
+                  return _context.abrupt("return", alert(a.data));
 
                 case 18:
                 case "end":
@@ -13202,6 +13221,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+ // biến responsive của thư viện react-multi-carousel
 
 
 
@@ -13238,25 +13258,30 @@ var responsive = {
 };
 
 function Home() {
+  // state lấy ra book onsale
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
       bookOnSale = _useState2[0],
-      setBookOnSale = _useState2[1];
+      setBookOnSale = _useState2[1]; // state lấy ra book recommended
+
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState4 = _slicedToArray(_useState3, 2),
       bookRecommended = _useState4[0],
-      setBookRecommended = _useState4[1];
+      setBookRecommended = _useState4[1]; // state lấy ra book popular
+
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState6 = _slicedToArray(_useState5, 2),
       bookPopular = _useState6[0],
-      setBookPopular = _useState6[1];
+      setBookPopular = _useState6[1]; // state set thay đổi trạng thái book recommended or popular
+
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(true),
       _useState8 = _slicedToArray(_useState7, 2),
       recommended = _useState8[0],
-      setRecommended = _useState8[1];
+      setRecommended = _useState8[1]; // state default book (book mặc định)
+
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState10 = _slicedToArray(_useState9, 2),
@@ -13265,6 +13290,7 @@ function Home() {
 
   var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_9__.useNavigate)();
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    // arrow function gọi tới axios trong homeAPI
     var home = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var onsale, popular, recommend;
@@ -13314,7 +13340,7 @@ function Home() {
     }();
 
     home();
-  }, []);
+  }, []); // arrow function về UI carousel item
 
   var CardItemCarousel = function CardItemCarousel(props) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default, {
@@ -13347,7 +13373,8 @@ function Home() {
         })
       })]
     });
-  };
+  }; // UI về book featured
+
 
   var CardItemFeatured = function CardItemFeatured(props) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
@@ -13387,137 +13414,143 @@ function Home() {
         })]
       })
     });
-  };
+  }; // hàm thay đổi trạng thái book sang recommended book
+
 
   var recommendedBookClick = function recommendedBookClick() {
     setDefaultBook(bookRecommended);
     setRecommended(true);
-  };
+  }; // hàm thay đổi trạng thái book sang popular book
+
 
   var popularBookClick = function popularBookClick() {
     setDefaultBook(bookPopular);
     setRecommended(false);
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
-    fluid: true,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
-      className: "justify-content-md-center",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
-        xs: true,
-        lg: 3,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+  return (
+    /*#__PURE__*/
+    // UI homePage
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default, {
+      fluid: true,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
+        className: "justify-content-md-center",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
+          xs: true,
+          lg: 3,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+            style: {
+              fontSize: "20px"
+            },
+            children: "On Sale"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
+          xs: true,
+          lg: 3
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
+          xs: true,
+          lg: 3,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default, {
+            variant: "secondary",
+            style: {
+              "float": "right",
+              width: "auto"
+            },
+            as: react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Link,
+            to: "/shop",
+            children: ["View All ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("i", {
+              className: "fas fa-angle-right"
+            }), " "]
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
+        className: "justify-content-md-center",
+        style: {
+          padding: "10px 0px 0px 0px"
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
+          xs: true,
+          lg: 9,
           style: {
-            fontSize: "20px"
+            border: "groove 3px",
+            boxShadow: "5px 10px #DDDDDD"
           },
-          children: "On Sale"
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_multi_carousel__WEBPACK_IMPORTED_MODULE_6__.default, {
+            responsive: responsive,
+            children: bookOnSale.map(function (item) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(CardItemCarousel, {
+                book_id: item.id,
+                book_title: item.book_title,
+                book_cover_photo: item.book_cover_photo,
+                author_name: item.author_name,
+                book_price: item.book_price,
+                final_price: item.final_price
+              }, item.id);
+            })
+          })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
-        xs: true,
-        lg: 3
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
-        xs: true,
-        lg: 3,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default, {
-          variant: "secondary",
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
+        className: "justify-content-md-center text-center",
+        style: {
+          padding: "80px 0px 0px 0px"
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
+          xs: true,
+          lg: 9,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
+            children: "Featured Books"
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
+        className: "justify-content-md-center text-center",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
+          xs: true,
+          lg: 9,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__.default, {
+            type: "radio",
+            name: "options",
+            defaultValue: 1,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__.default, {
+              id: "tbg-radio-1",
+              value: 1,
+              variant: recommended ? 'secondary' : 'light',
+              onClick: recommendedBookClick,
+              children: "Recommended"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__.default, {
+              id: "tbg-radio-2",
+              value: 2,
+              variant: recommended ? 'light' : 'secondary',
+              onClick: popularBookClick,
+              children: "Popular"
+            })]
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
+        className: "justify-content-md-center",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
+          xs: true,
+          lg: 9,
           style: {
-            "float": "right",
-            width: "auto"
+            marginTop: "40px",
+            border: "groove 3px",
+            boxShadow: "5px 10px #DDDDDD"
           },
-          as: react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Link,
-          to: "/shop",
-          children: ["View All ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("i", {
-            className: "fas fa-angle-right"
-          }), " "]
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
+            children: defaultBook.map(function (item) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(CardItemFeatured, {
+                book_id: item.id,
+                book_title: item.book_title,
+                book_cover_photo: item.book_cover_photo,
+                author_name: item.author_name,
+                book_price: item.book_price,
+                final_price: item.final_price
+              }, item.id);
+            })
+          })
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
-      className: "justify-content-md-center",
-      style: {
-        padding: "10px 0px 0px 0px"
-      },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
-        xs: true,
-        lg: 9,
-        style: {
-          border: "groove 3px",
-          boxShadow: "5px 10px #DDDDDD"
-        },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_multi_carousel__WEBPACK_IMPORTED_MODULE_6__.default, {
-          responsive: responsive,
-          children: bookOnSale.map(function (item) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(CardItemCarousel, {
-              book_id: item.id,
-              book_title: item.book_title,
-              book_cover_photo: item.book_cover_photo,
-              author_name: item.author_name,
-              book_price: item.book_price,
-              final_price: item.final_price
-            }, item.id);
-          })
-        })
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
-      className: "justify-content-md-center text-center",
-      style: {
-        padding: "80px 0px 0px 0px"
-      },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
-        xs: true,
-        lg: 9,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
-          children: "Featured Books"
-        })
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
-      className: "justify-content-md-center text-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
-        xs: true,
-        lg: 9,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__.default, {
-          type: "radio",
-          name: "options",
-          defaultValue: 1,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__.default, {
-            id: "tbg-radio-1",
-            value: 1,
-            variant: recommended ? 'secondary' : 'light',
-            onClick: recommendedBookClick,
-            children: "Recommended"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__.default, {
-            id: "tbg-radio-2",
-            value: 2,
-            variant: recommended ? 'light' : 'secondary',
-            onClick: popularBookClick,
-            children: "Popular"
-          })]
-        })
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
-      className: "justify-content-md-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
-        xs: true,
-        lg: 9,
-        style: {
-          marginTop: "40px",
-          border: "groove 3px",
-          boxShadow: "5px 10px #DDDDDD"
-        },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
-          children: defaultBook.map(function (item) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(CardItemFeatured, {
-              book_id: item.id,
-              book_title: item.book_title,
-              book_cover_photo: item.book_cover_photo,
-              author_name: item.author_name,
-              book_price: item.book_price,
-              final_price: item.final_price
-            }, item.id);
-          })
-        })
-      })
-    })]
-  });
+    })
+  );
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Home);
@@ -13578,6 +13611,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Login(props) {
+  // set popup modal
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
       isShow = _useState2[0],
@@ -13592,7 +13626,7 @@ function Login(props) {
       user = _useState4[0],
       setUser = _useState4[1];
 
-  var show = props.show;
+  var show = props.show; // data lưu object của login
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
     email: "",
@@ -13600,7 +13634,8 @@ function Login(props) {
   }),
       _useState6 = _slicedToArray(_useState5, 2),
       data = _useState6[0],
-      setData = _useState6[1];
+      setData = _useState6[1]; // check validate email
+
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
       _useState8 = _slicedToArray(_useState7, 2),
@@ -13610,7 +13645,8 @@ function Login(props) {
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
       _useState10 = _slicedToArray(_useState9, 2),
       messageEmail = _useState10[0],
-      setMessageEmail = _useState10[1];
+      setMessageEmail = _useState10[1]; // check validate password
+
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),
@@ -13620,23 +13656,20 @@ function Login(props) {
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
       _useState14 = _slicedToArray(_useState13, 2),
       messagePassword = _useState14[0],
-      setMessagePassword = _useState14[1];
+      setMessagePassword = _useState14[1]; // mounted thay đổi trạng thái cho re-render lại popup login
 
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
-      _useState16 = _slicedToArray(_useState15, 2),
-      res = _useState16[0],
-      setRes = _useState16[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
     setIsShow(show);
-  }, [show]);
+  }, [show]); // test lấy dữ liệu input của email và password
 
   function handle(e) {
     var newData = _objectSpread({}, data);
 
     newData[e.target.id] = e.target.value;
     setData(newData);
-  }
+  } // hàm xử lý login
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -13707,84 +13740,88 @@ function Login(props) {
     Login();
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-      onClick: function onClick() {
-        return setIsShow(true);
-      },
-      children: props.text
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_5__.default, {
-      show: isShow,
-      onHide: function onHide() {
-        return setIsShow(false);
-      },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_5__.default.Header, {
-        closeButton: true,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_5__.default.Title, {
-          children: "Sign in"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_5__.default.Body, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
-          method: "POST",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "mb-3",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-              htmlFor: "email",
-              className: "form-label",
-              children: "Email address"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-              type: "email",
-              className: "form-control",
-              id: "email",
-              "aria-describedby": "emailHelp",
-              onChange: function onChange(e) {
-                return handle(e);
-              },
-              value: data.email
-            }), checkEmail ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              className: "alert alert-danger",
-              role: "alert",
-              children: messageEmail
-            }) : ""]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "mb-3",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-              htmlFor: "password",
-              className: "form-label",
-              children: "Password"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-              type: "password",
-              className: "form-control",
-              id: "password",
-              onChange: function onChange(e) {
-                return handle(e);
-              },
-              value: data.password
-            }), checkPassword ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              className: "alert alert-danger",
-              role: "alert",
-              children: messagePassword
-            }) : ""]
+  return (
+    /*#__PURE__*/
+    // UI modal login
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+        onClick: function onClick() {
+          return setIsShow(true);
+        },
+        children: props.text
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_5__.default, {
+        show: isShow,
+        onHide: function onHide() {
+          return setIsShow(false);
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_5__.default.Header, {
+          closeButton: true,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_5__.default.Title, {
+            children: "Sign in"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_5__.default.Body, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
+            method: "POST",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              className: "mb-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                htmlFor: "email",
+                className: "form-label",
+                children: "Email address"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                type: "email",
+                className: "form-control",
+                id: "email",
+                "aria-describedby": "emailHelp",
+                onChange: function onChange(e) {
+                  return handle(e);
+                },
+                value: data.email
+              }), checkEmail ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "alert alert-danger",
+                role: "alert",
+                children: messageEmail
+              }) : ""]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              className: "mb-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                htmlFor: "password",
+                className: "form-label",
+                children: "Password"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                type: "password",
+                className: "form-control",
+                id: "password",
+                onChange: function onChange(e) {
+                  return handle(e);
+                },
+                value: data.password
+              }), checkPassword ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "alert alert-danger",
+                role: "alert",
+                children: messagePassword
+              }) : ""]
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_5__.default.Footer, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_6__.default, {
+            variant: "secondary",
+            onClick: function onClick() {
+              return setIsShow(false);
+            },
+            children: "Close"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_6__.default, {
+            variant: "primary",
+            type: "submit",
+            onClick: function onClick(e) {
+              return handleSubmit(e);
+            },
+            children: "Sign up"
           })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap_Modal__WEBPACK_IMPORTED_MODULE_5__.default.Footer, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_6__.default, {
-          variant: "secondary",
-          onClick: function onClick() {
-            return setIsShow(false);
-          },
-          children: "Close"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_6__.default, {
-          variant: "primary",
-          type: "submit",
-          onClick: function onClick(e) {
-            return handleSubmit(e);
-          },
-          children: "Sign up"
         })]
       })]
-    })]
-  });
+    })
+  );
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Login);
@@ -13993,10 +14030,13 @@ function Product() {
   var _useState43 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState44 = _slicedToArray(_useState43, 2),
       showError = _useState44[0],
-      setShowError = _useState44[1];
+      setShowError = _useState44[1]; // navigate chuyển trang
 
-  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useNavigate)();
-  var url = window.location.pathname;
+
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useNavigate)(); // lấy url 
+
+  var url = window.location.pathname; // lưu trữ url để import vào hàm bên productAPI
+
   var reviewUrl = "/shop/product" + "/review/";
   var countReviewUrl = "/shop/product/review/count/";
 
@@ -14006,7 +14046,8 @@ function Product() {
   }
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    var queryParams = query_string__WEBPACK_IMPORTED_MODULE_8__.stringify(filter);
+    var queryParams = query_string__WEBPACK_IMPORTED_MODULE_8__.stringify(filter); // convert chuỗi filter
+    // hàm xử lý gửi request và response qua productAPI
 
     var product = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -14098,7 +14139,7 @@ function Product() {
     }();
 
     product();
-  }, [filter, itemOffset, show]);
+  }, [filter, itemOffset, show]); // UI về card/item book theo id
 
   var CardItemProduct = function CardItemProduct(props) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
@@ -14246,7 +14287,8 @@ function Product() {
         })]
       })]
     });
-  };
+  }; // hàm xử lý add to cart using localstorage
+
 
   var handleAddToCart = function handleAddToCart(bookID, bookImg, bookPrice, bookQuantity, bookTitle, bookAuthorName) {
     var cartArray = [];
@@ -14299,7 +14341,8 @@ function Product() {
     localStorage.setItem('cart', JSON.stringify(cartArray));
     setQuantity(quantity = 1);
     return true;
-  };
+  }; // UI lưu thông tin của review
+
 
   var ReviewProductDetails = function ReviewProductDetails(props) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
@@ -14331,7 +14374,8 @@ function Product() {
         })]
       })
     });
-  };
+  }; // UI toàn bộ danh sách review
+
 
   function ReviewProduct() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
@@ -14563,7 +14607,8 @@ function Product() {
         })]
       })
     });
-  }
+  } // function hiện ra khi book đó không có review nào
+
 
   function ReviewProductNone() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
@@ -14611,7 +14656,8 @@ function Product() {
         })]
       })
     });
-  }
+  } // tạo hiệu ứng quay để che đậy sự load lâu của trang
+
 
   function SpinLoading() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_12__.default, {
@@ -14629,7 +14675,8 @@ function Product() {
         })
       })
     });
-  }
+  } // tổng hợp cái UI lại
+
 
   function ProductPage() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
@@ -14718,8 +14765,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function ReviewForm() {
-  var id = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useParams)();
-  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate)();
+  // lấy ra id trên url thông qua route
+  var id = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useParams)(); // navigate trong react-router-dom dùng cho redirect sang url chỉ định
+
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate)(); // state object chứa dữ liệu review
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     review_title: "",
@@ -14729,7 +14778,8 @@ function ReviewForm() {
   }),
       _useState2 = _slicedToArray(_useState, 2),
       data = _useState2[0],
-      setData = _useState2[1];
+      setData = _useState2[1]; // state set trang thái alert và message
+
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
       _useState4 = _slicedToArray(_useState3, 2),
@@ -14744,12 +14794,14 @@ function ReviewForm() {
   }),
       _useState6 = _slicedToArray(_useState5, 2),
       message = _useState6[0],
-      setMessage = _useState6[1];
+      setMessage = _useState6[1]; // state set trạng thái reload trang
+
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState8 = _slicedToArray(_useState7, 2),
       reload = _useState8[0],
-      setReload = _useState8[1];
+      setReload = _useState8[1]; // hàm add review
+
 
   function submit(e) {
     e.preventDefault();
@@ -14829,7 +14881,8 @@ function ReviewForm() {
     }();
 
     Review();
-  }
+  } // hàm in thông báo review thành công trong 5 giây và reload lại trang
+
 
   function AlertMessage(props) {
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
@@ -14844,7 +14897,8 @@ function ReviewForm() {
       variant: props.variant,
       children: props.message
     }, props.variant);
-  }
+  } // test lấy dữ liệu input
+
 
   function handle(e) {
     var newData = _objectSpread({}, data);
@@ -14853,102 +14907,106 @@ function ReviewForm() {
     setData(newData);
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default.Header, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
-        children: "Write a review"
-      }), alert === true ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(AlertMessage, {
-        variant: "success",
-        message: "Add review success",
-        reload: reload
-      }) : ""]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default.Body, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("form", {
-        onSubmit: function onSubmit(e) {
-          return submit(e);
-        },
-        method: "POST",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("fieldset", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-            className: "mb-3",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-              htmlFor: "review_title",
-              className: "form-label",
-              children: "Add a title"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-              type: "text",
-              id: "review_title",
-              className: "form-control",
-              onChange: function onChange(e) {
-                return handle(e);
-              },
-              value: data.review_title
-            })]
-          }), message.title_error == "" ? "" : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(AlertMessage, {
-            variant: "danger",
-            message: message.title_error
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-            className: "mb-3",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-              htmlFor: "review_details",
-              className: "form-label",
-              children: "Detail please! Your detail help other shoppers"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-              type: "text",
-              id: "review_details",
-              className: "form-control",
-              onChange: function onChange(e) {
-                return handle(e);
-              },
-              value: data.review_details
-            }), message.details_error == "" ? "" : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(AlertMessage, {
-              variant: "danger",
-              message: message.details_error
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-            className: "mb-3",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-              htmlFor: "rating_start",
-              className: "form-label",
-              children: "Select a rating star"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
-              id: "rating_start",
-              className: "form-select",
-              onChange: function onChange(e) {
-                return handle(e);
-              },
-              value: data.rating_start,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                value: "1",
-                children: "1 Star"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                value: "2",
-                children: "2 Star"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                value: "3",
-                children: "3 Star"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                value: "4",
-                children: "4 Star"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                value: "5",
-                children: "5 Star"
+  return (
+    /*#__PURE__*/
+    // UI review form
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default.Header, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+          children: "Write a review"
+        }), alert === true ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(AlertMessage, {
+          variant: "success",
+          message: "Add review success",
+          reload: reload
+        }) : ""]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__.default.Body, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("form", {
+          onSubmit: function onSubmit(e) {
+            return submit(e);
+          },
+          method: "POST",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("fieldset", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+              className: "mb-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+                htmlFor: "review_title",
+                className: "form-label",
+                children: "Add a title"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                type: "text",
+                id: "review_title",
+                className: "form-control",
+                onChange: function onChange(e) {
+                  return handle(e);
+                },
+                value: data.review_title
               })]
-            }), message.rating_start_error == "" ? "" : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(AlertMessage, {
+            }), message.title_error == "" ? "" : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(AlertMessage, {
               variant: "danger",
-              message: message.rating_start_error
+              message: message.title_error
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+              className: "mb-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+                htmlFor: "review_details",
+                className: "form-label",
+                children: "Detail please! Your detail help other shoppers"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                type: "text",
+                id: "review_details",
+                className: "form-control",
+                onChange: function onChange(e) {
+                  return handle(e);
+                },
+                value: data.review_details
+              }), message.details_error == "" ? "" : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(AlertMessage, {
+                variant: "danger",
+                message: message.details_error
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+              className: "mb-3",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+                htmlFor: "rating_start",
+                className: "form-label",
+                children: "Select a rating star"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
+                id: "rating_start",
+                className: "form-select",
+                onChange: function onChange(e) {
+                  return handle(e);
+                },
+                value: data.rating_start,
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                  value: "1",
+                  children: "1 Star"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                  value: "2",
+                  children: "2 Star"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                  value: "3",
+                  children: "3 Star"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                  value: "4",
+                  children: "4 Star"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                  value: "5",
+                  children: "5 Star"
+                })]
+              }), message.rating_start_error == "" ? "" : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(AlertMessage, {
+                variant: "danger",
+                message: message.rating_start_error
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+              className: "mb-3"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+              type: "submit",
+              className: "btn btn-primary",
+              children: "Submit"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            className: "mb-3"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
-            type: "submit",
-            className: "btn btn-primary",
-            children: "Submit"
-          })]
+          })
         })
-      })
-    })]
-  });
+      })]
+    })
+  );
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ReviewForm);
@@ -14978,8 +15036,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/ListGroup.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Accordion.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Dropdown.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Dropdown.js");
 /* harmony import */ var react_paginate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-paginate */ "./node_modules/react-paginate/dist/react-paginate.js");
 /* harmony import */ var react_paginate__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_paginate__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _services_shopAPI__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/shopAPI */ "./resources/js/services/shopAPI.js");
@@ -15023,49 +15081,54 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 function Shop() {
-  // set all book
+  // set state get all book
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
       allBook = _useState2[0],
-      setAllBook = _useState2[1]; // set category
+      setAllBook = _useState2[1]; // set state get all category
 
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState4 = _slicedToArray(_useState3, 2),
       category = _useState4[0],
-      setCategory = _useState4[1];
+      setCategory = _useState4[1]; // set state active category
+
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
       _useState6 = _slicedToArray(_useState5, 2),
       activeCategory = _useState6[0],
-      setActiveCategory = _useState6[1];
+      setActiveCategory = _useState6[1]; // set state active author
+
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
       _useState8 = _slicedToArray(_useState7, 2),
       activeAuthor = _useState8[0],
-      setActiveAuthor = _useState8[1];
+      setActiveAuthor = _useState8[1]; // set state active crating
+
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
       _useState10 = _slicedToArray(_useState9, 2),
       activeRating = _useState10[0],
-      setActiveRating = _useState10[1];
+      setActiveRating = _useState10[1]; // set state title category
+
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState12 = _slicedToArray(_useState11, 2),
       titleCategory = _useState12[0],
-      setTitleCategory = _useState12[1];
+      setTitleCategory = _useState12[1]; // set state title author
+
 
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState14 = _slicedToArray(_useState13, 2),
       titleAuthor = _useState14[0],
-      setTitleAuthor = _useState14[1];
+      setTitleAuthor = _useState14[1]; // set state title rating
+
 
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
       _useState16 = _slicedToArray(_useState15, 2),
       titleRating = _useState16[0],
-      setTitleRating = _useState16[1]; // set author
+      setTitleRating = _useState16[1]; // set state get all author
 
 
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
@@ -15101,7 +15164,7 @@ function Shop() {
   var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
       _useState28 = _slicedToArray(_useState27, 2),
       to = _useState28[0],
-      setTo = _useState28[1]; // paginate
+      setTo = _useState28[1]; // paginate lấy ra current page và itemoffset
 
 
   var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
@@ -15118,18 +15181,21 @@ function Shop() {
   var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("Sort by on sale"),
       _useState34 = _slicedToArray(_useState33, 2),
       titleSort = _useState34[0],
-      setTitleSort = _useState34[1];
+      setTitleSort = _useState34[1]; // state lưu trữ object filter
+
 
   var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     sortby: 'onsale'
   }),
       _useState36 = _slicedToArray(_useState35, 2),
       filter = _useState36[0],
-      setFilter = _useState36[1];
+      setFilter = _useState36[1]; // biến redirect 
+
 
   var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_9__.useNavigate)();
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    var queryParams = query_string__WEBPACK_IMPORTED_MODULE_3__.stringify(filter);
+    // convert chuỗi sang (vd: shop?test=a&ahihi=b)
+    var queryParams = query_string__WEBPACK_IMPORTED_MODULE_3__.stringify(filter); // hàm gửi request và nhận response từ shopAPI trả về
 
     var shop = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -15184,7 +15250,7 @@ function Shop() {
     }();
 
     shop();
-  }, [filter, itemOffset]);
+  }, [filter, itemOffset]); // UI cardItem
 
   var CardItem = function CardItem(props) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default, {
@@ -15224,7 +15290,8 @@ function Shop() {
         })]
       })
     });
-  };
+  }; // hàm active category và unactive category
+
 
   function handleActiveCate(id, category_name) {
     if (activeCategory != id) {
@@ -15244,7 +15311,8 @@ function Shop() {
     }
 
     setCurrentItems(0);
-  }
+  } // UI arcodition category
+
 
   var CategoryFilter = function CategoryFilter(props) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default.Body, {
@@ -15256,7 +15324,8 @@ function Shop() {
         children: props.category_name
       })
     });
-  };
+  }; // hàm active author và unactive author
+
 
   function handleActiveAu(id, author_name) {
     if (activeAuthor != id) {
@@ -15276,7 +15345,8 @@ function Shop() {
     }
 
     setCurrentItems(0);
-  }
+  } // UI arcodition author
+
 
   var AuthorFilter = function AuthorFilter(props) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default.Body, {
@@ -15288,7 +15358,8 @@ function Shop() {
         children: props.author_name
       })
     });
-  };
+  }; // set cứng số sao từ 1 tới 5
+
 
   var ratingArray = [{
     id: 1,
@@ -15305,7 +15376,7 @@ function Shop() {
   }, {
     id: 5,
     star: "5 Star"
-  }];
+  }]; // active rating_start và unactive rating_start
 
   function handleActiveRate(id, rating_start) {
     if (activeRating != id) {
@@ -15325,7 +15396,8 @@ function Shop() {
     }
 
     setCurrentItems(0);
-  }
+  } // UI arcodition rating_start
+
 
   var RatingFilter = function RatingFilter(props) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_13__.default.Body, {
@@ -15337,7 +15409,8 @@ function Shop() {
         children: props.star
       })
     });
-  };
+  }; // UI hiệu ứng spin tránh sự load chậm của web
+
 
   function SpinLoading() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
@@ -15355,7 +15428,8 @@ function Shop() {
         })
       })
     });
-  }
+  } // UI hiện toàn bộ sản phẩm và phân trang
+
 
   var ProductPack = function ProductPack() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
@@ -15409,8 +15483,11 @@ function Shop() {
     });
   };
 
-  var ProductMain = function ProductMain() {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
+  return (
+    /*#__PURE__*/
+    // UI tổng gồm category, author, rating_start, toàn bộ sản phẩm và sort
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default, {
+      fluid: true,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_14__.default, {
         className: "justify-content-md-center",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default, {
@@ -15444,14 +15521,14 @@ function Shop() {
           style: {
             width: "auto"
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Toggle, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default.Toggle, {
               id: "dropdown-button-dark-example1",
               variant: "secondary",
               children: titleSort
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Menu, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default.Menu, {
               variant: "light",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Item, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default.Item, {
                 onClick: function onClick() {
                   return setFilter(_objectSpread(_objectSpread({}, filter), {}, {
                     page: 1,
@@ -15459,7 +15536,7 @@ function Shop() {
                   })), setTitleSort("Sort by on sale"), setCurrentItems(0);
                 },
                 children: "Sort by on sale"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Item, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default.Item, {
                 onClick: function onClick() {
                   return setFilter(_objectSpread(_objectSpread({}, filter), {}, {
                     page: 1,
@@ -15467,7 +15544,7 @@ function Shop() {
                   })), setTitleSort("Sort by popularity"), setCurrentItems(0);
                 },
                 children: "Sort by popularity"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Item, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default.Item, {
                 onClick: function onClick() {
                   return setFilter(_objectSpread(_objectSpread({}, filter), {}, {
                     page: 1,
@@ -15475,7 +15552,7 @@ function Shop() {
                   })), setTitleSort("Sort by price: low to high"), setCurrentItems(0);
                 },
                 children: "Sort by price: low to high"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Item, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default.Item, {
                 onClick: function onClick() {
                   return setFilter(_objectSpread(_objectSpread({}, filter), {}, {
                     page: 1,
@@ -15489,14 +15566,14 @@ function Shop() {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__.default, {
           xs: true,
           lg: 1,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Toggle, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default.Toggle, {
               id: "dropdown-button-dark-example1",
               variant: "secondary",
               children: ["Show ", perPage]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Menu, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default.Menu, {
               variant: "dark",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Item, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default.Item, {
                 onClick: function onClick() {
                   return setFilter(_objectSpread(_objectSpread({}, filter), {}, {
                     page: 1,
@@ -15504,7 +15581,7 @@ function Shop() {
                   })), setCurrentItems(0);
                 },
                 children: "Show 5"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Item, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default.Item, {
                 onClick: function onClick() {
                   return setFilter(_objectSpread(_objectSpread({}, filter), {}, {
                     page: 1,
@@ -15512,7 +15589,7 @@ function Shop() {
                   })), setCurrentItems(0);
                 },
                 children: "Show 15"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Item, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default.Item, {
                 onClick: function onClick() {
                   return setFilter(_objectSpread(_objectSpread({}, filter), {}, {
                     page: 1,
@@ -15520,7 +15597,7 @@ function Shop() {
                   })), setCurrentItems(0);
                 },
                 children: "Show 20"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_15__.default.Item, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default.Item, {
                 onClick: function onClick() {
                   return setFilter(_objectSpread(_objectSpread({}, filter), {}, {
                     page: 1,
@@ -15601,13 +15678,8 @@ function Shop() {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(ProductPack, {})
         })]
       })]
-    });
-  };
-
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_16__.default, {
-    fluid: true,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(ProductMain, {})
-  });
+    })
+  );
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Shop);
@@ -15635,12 +15707,14 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+ // khai báo biến token
 
-var token = '';
+var token = ''; // check nếu trong localstorage của use tồn tại thì gán token bằng localstorage token 
 
 if (JSON.parse(localStorage.getItem('user'))) {
   token = JSON.parse(localStorage.getItem('token'));
-}
+} // create axios với bareURL là subdomain và headers bao gồm content là dạng json và authorize token là bearer token
+
 
 var axiosServices = axios__WEBPACK_IMPORTED_MODULE_1___default().create({
   baseURL: "http://localhost:8000/",
@@ -15648,7 +15722,7 @@ var axiosServices = axios__WEBPACK_IMPORTED_MODULE_1___default().create({
     "Content-Type": "application/json",
     "Authorization": "Bearer ".concat(token)
   }
-}); // Interceptors
+}); // Interceptors.request đón chặn request trước khi được gửi đi 
 
 axiosServices.interceptors.request.use( /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(config) {
@@ -15669,13 +15743,15 @@ axiosServices.interceptors.request.use( /*#__PURE__*/function () {
   return function (_x) {
     return _ref.apply(this, arguments);
   };
-}());
+}()); // interceptors.response đón chặn response.
+
 axiosServices.interceptors.response.use(function (response) {
+  // trong tầm 2xx
   if (response && response.data) {
     return response.data;
   }
 
-  return response;
+  return response; // ngoài tầm 2xx
 }, function (error) {
   throw error;
 });
@@ -15697,14 +15773,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _axiosServices__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./axiosServices */ "./resources/js/services/axiosServices.js");
 
 var homeAPI = {
+  // call route api get onsale book
   getBookOnSale: function getBookOnSale() {
     var rs = "api/home/sale";
     return _axiosServices__WEBPACK_IMPORTED_MODULE_0__.default.get(rs);
   },
+  // call route api get recommended book
   getBookRecommended: function getBookRecommended() {
     var rs = "api/home/recommended";
     return _axiosServices__WEBPACK_IMPORTED_MODULE_0__.default.get(rs);
   },
+  // call route api get popular book
   getBookPopular: function getBookPopular() {
     var rs = "api/home/popular";
     return _axiosServices__WEBPACK_IMPORTED_MODULE_0__.default.get(rs);
@@ -15728,10 +15807,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _axiosServices__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./axiosServices */ "./resources/js/services/axiosServices.js");
 
 var loginAPI = {
+  // get route api login
   Login: function Login(value) {
     var a = "api/authenticate/login";
     return _axiosServices__WEBPACK_IMPORTED_MODULE_0__.default.post(a, value);
   },
+  // get route api logout
   Logout: function Logout() {
     var a = "api/authenticate/logout";
     return _axiosServices__WEBPACK_IMPORTED_MODULE_0__.default.post(a);
@@ -15755,6 +15836,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _axiosServices__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./axiosServices */ "./resources/js/services/axiosServices.js");
 
 var orderAPI = {
+  // get route api order sản phẩm
   createOrder: function createOrder(object) {
     var rs = 'api/shop/product/createOrder';
     return _axiosServices__WEBPACK_IMPORTED_MODULE_0__.default.post(rs, object);
@@ -15778,18 +15860,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _axiosServices__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./axiosServices */ "./resources/js/services/axiosServices.js");
 
 var productAPI = {
+  // get route api lấy thông tin sản phẩm theo id
   getProductDetails: function getProductDetails(query) {
     var rs = "api".concat(query);
     return _axiosServices__WEBPACK_IMPORTED_MODULE_0__.default.get(rs);
   },
+  // get route api lấy danh sách review theo id
   getReviewDetails: function getReviewDetails(a, b) {
     var rs = "api".concat(a, "?").concat(b);
     return _axiosServices__WEBPACK_IMPORTED_MODULE_0__.default.get(rs);
   },
+  // get route api đếm tổng review mà số sao đó có
   getCountRating: function getCountRating(a) {
     var rs = "api".concat(a);
     return _axiosServices__WEBPACK_IMPORTED_MODULE_0__.default.get(rs);
   },
+  // get route api tạo review mới
   createReview: function createReview(object) {
     var rs = 'api/shop/product/createReview';
     return _axiosServices__WEBPACK_IMPORTED_MODULE_0__.default.post(rs, object);
@@ -15813,14 +15899,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _axiosServices__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./axiosServices */ "./resources/js/services/axiosServices.js");
 
 var shopAPI = {
+  // get route api lấy danh sách danh mục
   getCategory: function getCategory() {
     var rs = "api/shop/category";
     return _axiosServices__WEBPACK_IMPORTED_MODULE_0__.default.get(rs);
   },
+  // get route api lấy danh sách tác giả 
   getAuthor: function getAuthor() {
     var rs = "api/shop/author";
     return _axiosServices__WEBPACK_IMPORTED_MODULE_0__.default.get(rs);
   },
+  // get route api lấy toàn bộ sách kèm filter 
   getBookFilter: function getBookFilter(query) {
     var rs = "api/shop?".concat(query);
     return _axiosServices__WEBPACK_IMPORTED_MODULE_0__.default.get(rs);

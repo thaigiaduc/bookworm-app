@@ -23,6 +23,7 @@ class ReviewController extends Controller
         $this->reivewRepo = $reviewRepo;
     }
 
+    // lấy tất danh sách review của sản phẩm và có sort
     public function index(Request $request ,$id)
     {
         try {
@@ -33,6 +34,7 @@ class ReviewController extends Controller
         } 
     }
 
+    // lấy ra số review được đánh giá theo sao
     public function getCountRating($id)
     {
         try {
@@ -43,6 +45,7 @@ class ReviewController extends Controller
         }
     }
 
+    // lưu review 
     public function store(ReviewRequest $request)
     {
         try {

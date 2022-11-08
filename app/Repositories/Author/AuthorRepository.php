@@ -10,7 +10,7 @@ class AuthorRepository
 {
     //lấy model tương ứng
     protected $authorRepo;
-    
+    // query lấy ra danh sách tác giả
     public function getAll()
     {    
         $author = Author::orderBy('author.id','asc')->get();

@@ -7,17 +7,25 @@ import '../../App.css';
 import './cart.css';
 import Login from '../login/Login'
 function Cart() { 
+    // set state lưu mảng localstorage cart
     const [cartItem, setCartItem] = useState(JSON.parse(localStorage.getItem('cart')));
+    // set state total book gộp lại
     const [total, setTotal] = useState(0);
+    // set state object lưu số lượng và tổng show cart
     const [quantity, setQuantity] = useState({id: "", quantity: 0, total: 0});
+    // navigate redirect
     const navigate = useNavigate();
+    // set state show sign in
     const [show, setShow] = useState(false);
+    // set state title của giỏ hàng
     const [titleCart,setTitleCart] = useState(0);
+    // set state object lưu mảng order_item
     const [orderItem, setOrderItem] = useState({
         user_id: "",
         order_item: [],
     })
     useEffect(() => {
+        // tính tổng total trong localstorage cart
         var testArray = JSON.parse(localStorage.getItem('cart'));
         if(testArray != null) {
             var c = 0;
@@ -33,10 +41,11 @@ function Cart() {
         setCartItem(JSON.parse(localStorage.getItem('cart')));
     }, [quantity]);
 
-    // order
+    // hàm order sản phẩm
     const placeOrder = (e) => {
         e.preventDefault();
             if(localStorage.getItem('cart') !== null && localStorage.getItem('user') !== null && localStorage.getItem('token') !== null) {
+                // function call API để lưu order vào database với điều kiện tồn tại user(đã đăng nhập) và trả thông báo thất bại khi id của book không tồn tại
                 const Order = async () => {
                     try {
                         var orderArray = JSON.parse(localStorage.getItem('cart'));
@@ -59,19 +68,16 @@ function Cart() {
                         function alertTime() {
                             setCartItem(null);
                             setTotal(0);
+                            localStorage.removeItem('cart');
                             alert('success');
                             navigate(`/home`);
                             clearTimeout(time);
                         }
                         if(a.status_code == 201) {
                             const time = setTimeout(alertTime,10000);
-                        } else {
-                            alert("error, book_id doesn exist");
-                            localStorage.removeItem('cart');
-                            window.location.reload();
                         }
                     } catch (error) {
-                        console.log(error);
+                        return alert(a.data);
                     }
                 }
                 Order();
@@ -128,6 +134,7 @@ function Cart() {
         }
     }
 
+    // UI cart trống
     const ShowCartNone = props => {
         return (
             <Card>
@@ -146,6 +153,7 @@ function Cart() {
         );
     }
 
+    // UI cart
     const ShowCart = props => {
         return (
             <Card>
@@ -206,6 +214,7 @@ function Cart() {
     }
 
     return (
+        // UI tổng hợp cart và section total, button place order
         <Container fluid style={{paddingBottom: "350px"}}>
             <Row className="justify-content-md-center">
                 <Col xs lg={11} style={{borderBottom: "groove 1px", fontSize: "30px"}}><b>Your Cart: {titleCart} items</b></Col>

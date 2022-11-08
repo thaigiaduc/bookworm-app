@@ -23,6 +23,7 @@ class BookController extends Controller
         $this->bookRepo = $bookRepo;
     }
     
+    // lấy tất cả sách có filter
     public function index(Request $request)
     {
         try {
@@ -49,6 +50,7 @@ class BookController extends Controller
         
     }
 
+    // lấy sách on sale trong homepage
     public function getBookOnSale()
     {
         try {
@@ -59,7 +61,7 @@ class BookController extends Controller
         }
     }
 
-    // show featured recommended section trong homepage
+    // lấy featured recommended book trong homepage
     public function getBookFeaturedRecommended()
     {
         try {
@@ -70,7 +72,7 @@ class BookController extends Controller
         }
     }
 
-    // show featured popularity section trong homepage
+    // lấy popular book trong homepage
     public function getBookFeaturedPopularity()
     {
         try {
@@ -81,14 +83,7 @@ class BookController extends Controller
         }
     }
 
-    public function store(BookRequest $request)
-    {
-        try {
-            
-        } catch(Exception $e) {
-            return $e->getMessage();
-        }
-    }
+    
     /**
      * Show the form for creating a new resource.
      *

@@ -10,6 +10,7 @@ class LoginRepository
 {
     //lấy model tương ứng
     protected $loginRepo;
+    // query đăng nhập
     public function queryLogin(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
@@ -23,10 +24,10 @@ class LoginRepository
                 'status_code' => 200,
             ], 200);
         }
-
         return response()->json('Login failed: Invalid username or password.', 422);
     }
 
+    // query đăng xuất
     public function queryLogout(Request $request)
     {
         $user = Auth::user()->tokens()->delete();

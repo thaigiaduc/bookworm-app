@@ -33,14 +33,9 @@ class ReviewRequest extends FormRequest
         ];
     }
 
+    // trả response về cho client
     public function failedValidation(Validator $validator)
     {
-
-        // throw new HttpResponseException(response()->json([
-        //     'message' => 'Failed',
-        //     'data' => $validator->errors()
-        // ],422));
-
         throw new HttpResponseException(response()->json([
             'message' => 'Failed',
             'data' => $validator->errors(),
@@ -48,6 +43,7 @@ class ReviewRequest extends FormRequest
         ],200));
     }
 
+    // quăng ra message khi gặp lỗi
     public function messages()
 	{
 	   return [

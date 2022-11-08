@@ -7,14 +7,18 @@ import productAPI from '../../../services/productAPI';
 import queryString from 'query-string';
 import { isEmpty } from 'lodash';
 function ReviewForm() {
+    // lấy ra id trên url thông qua route
     const id = useParams();
+    // navigate trong react-router-dom dùng cho redirect sang url chỉ định
     const navigate = useNavigate();
+    // state object chứa dữ liệu review
     const [data, setData] = useState({
         review_title: "",
         review_details: "",
         rating_start: "1",
         book_id: id.id,
     });
+    // state set trang thái alert và message
     const [alert, setAlert] = useState(null);
     const [message, setMessage] = useState({
         title_error: "",
@@ -22,11 +26,14 @@ function ReviewForm() {
         rating_start_error: "",
         book_id_error: "",
     });
+    // state set trạng thái reload trang
     const [reload, setReload] = useState(false);
+    // hàm add review
     function submit(e) {
         e.preventDefault();
         const Review = async () => {
             try {
+                // truyền object sang productAPI và nhận về response
                 const c = await productAPI.createReview({
                     review_title: data.review_title,
                     review_details: data.review_details,
@@ -57,6 +64,7 @@ function ReviewForm() {
         Review();
     }
 
+    // hàm in thông báo review thành công trong 5 giây và reload lại trang
     function AlertMessage(props) {
         useEffect(() => {
             function useTime() {
@@ -73,12 +81,14 @@ function ReviewForm() {
         );
     }
 
+    // test lấy dữ liệu input
     function handle(e) {
         let newData ={...data}
         newData[e.target.id] = e.target.value;
         setData(newData);
     }
     return (
+        // UI review form
         <Card>
               <Card.Header>
                 <h2>Write a review</h2>

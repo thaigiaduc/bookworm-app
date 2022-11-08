@@ -4,35 +4,43 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import loginAPI from '../../services/loginAPI';
+
 function Login(props) {
+    // set popup modal
     const [isShow, setIsShow] = useState(false);
     const handleClose = () => setShow(false);
     const [user, setUser] = useState([]);
     const show = props.show;
+    // data lưu object của login
     const [data, setData] = useState({
       email: "",
       password: "",
     });
+    // check validate email
     const [checkEmail, setCheckEmail] = useState(false);
     const [messageEmail, setMessageEmail] = useState("");
+    // check validate password
     const [checkPassword, setCheckPassword] = useState(false);
     const [messagePassword, setMessagePassword] = useState("");
-    const [res, setRes] = useState(null);
-      useEffect(()=>{
-          setIsShow(show);
-          
-      }, [show])
+    
+    // mounted thay đổi trạng thái cho re-render lại popup login
+    useEffect(()=>{
+        setIsShow(show); 
+    }, [show])
 
+    // test lấy dữ liệu input của email và password
     function handle(e) {
       let newData ={...data}
       newData[e.target.id] = e.target.value;
       setData(newData);
     }
 
+    // hàm xử lý login
     function handleSubmit(e) {
       e.preventDefault();
       const Login = async () => {
         try {
+          // gửi request và nhận response từ loginAPI
             const a = await loginAPI.Login({
                 email: data.email,
                 password: data.password,
@@ -69,6 +77,7 @@ function Login(props) {
     }
     
     return (
+      // UI modal login
         <React.Fragment >
             <span onClick={ ()=> (setIsShow(true))}>{props.text}</span>
             <Modal show={isShow} onHide={ () => (setIsShow(false))}>

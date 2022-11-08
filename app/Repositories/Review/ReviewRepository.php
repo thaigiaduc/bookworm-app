@@ -14,13 +14,7 @@ class ReviewRepository
     //lấy model tương ứng
     protected $ReviewRepo;
     
-    public function all($id)
-    {
-        $review = Review::where('book_id',$id)->orderBy('id', 'asc');
-        $result = $review->paginate(5);
-        return $result;
-    }
-
+    // lấy ra danh sách review theo id của book và sort
     public function sortReview(Request $request, $id)
     {
         if($request->item_per_page == null)
@@ -43,6 +37,7 @@ class ReviewRepository
         return $review_data->paginate($request->item_per_page);
     }
 
+    // count tất cả review theo số sao của book đó
     public function countRating($id)
     {
         $review = Review::selectRaw('book_id,rating_start,count(rating_start) as count_rating')->where('book_id',$id)->groupBy('book_id','rating_start')->orderBy('rating_start','asc');

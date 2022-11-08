@@ -12,20 +12,25 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import loginAPI from '../services/loginAPI';
 
 function Header() {
+  //  set state modal signin
   const [show, setShow] = useState(false);
+  // state set fullname cho tên (first_name + last_name)
   const [fullName, setFullName] = useState("");
+  // state check đã đăng nhập hay chưa
   const [checkLogin, setCheckLogin] = useState(false);
+  // hàm show modal signIn
   const handleShow = () => setShow(true);
+  // lấy ra số lượng sản phẩm trong cart
   const [quantityProduct, setQuantityProduct] = useState(0);
   
   useEffect(() => {
-    
+    // set số lượng dựa trên localstorage cart
     const arr = JSON.parse(localStorage.getItem('cart'));
     if(arr) {
       setQuantityProduct(arr.length);
     }
     
-    // setQuantityProduct(test);
+    // set fullname dựa trên localstorage user
     const userInfo = JSON.parse(localStorage.getItem('user'));
     if(userInfo){
         setCheckLogin(true);
@@ -33,7 +38,7 @@ function Header() {
     }
   }, []);
 
-  
+  // hàm xử lý logout khi đã đăng nhập
   function handleLogout() {
     const Logout = async () => {
       try {
@@ -47,10 +52,11 @@ function Header() {
       } catch (error) {
           console.log(error);
       }
-  }
-  Logout();
+    }
+    Logout();
   }
     return ( 
+      // UI navigation của header
         <header className="App-header">
             <Navbar collapseOnSelect fixed='top' expand="lg" bg="light" variant="light">
               <Container fluid>
@@ -93,12 +99,7 @@ function Header() {
                   </Nav>
                 </Navbar.Collapse>
               </Container>
-            </Navbar>
-
-            {/* <Login 
-              show = {show}
-              text = {"sign in"}
-            /> */}
+            </Navbar> 
         </header>
     );
 }

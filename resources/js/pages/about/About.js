@@ -4,6 +4,7 @@ import '../../App.css';
 import './about.css';
 function About() {
     return (
+        // UI của aboutPage
         <Container fluid>
             <Row className="justify-content-md-center">
                 <Col xs lg={9} id="title"><b>About Us</b></Col>

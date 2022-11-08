@@ -5,13 +5,14 @@ import { FaBookOpen } from 'react-icons/fa'
 
 function Footer() {
     return (
+        // UI của footer
         <footer className="App-footer">
             <Container fluid>
                 <Row xs="auto">
                     <Col style={{fontSize: "40px"}}><img src="../../assets/bookworm_icon.svg"></img></Col>
                     <Col>
                         BOOKWORM<br/>
-                        Address: 51/3 Bãi Sậy, Phường 1, Quận 6<br/>
+                        Address: 364 Cộng Hòa, Quận Tân Bình<br/>
                         Phone: 0779636115
                     </Col>
                 </Row>

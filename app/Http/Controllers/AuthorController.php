@@ -22,6 +22,7 @@ class AuthorController extends Controller
         //
     }
 
+    // controller lấy danh sách tác giả
     public function getAuthor()
     {
         try {

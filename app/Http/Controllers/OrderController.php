@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    // Order sản phẩm
     public function createOrder(StoreBookRequest $request)
     {
         $order_amount = 0;

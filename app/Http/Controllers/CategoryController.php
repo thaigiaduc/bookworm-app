@@ -17,6 +17,7 @@ class CategoryController extends Controller
         $this->categoryRepo = $categoryRepo;
     }
 
+    // lấy ra danh sách category
     public function getCategory()
     {
         try {
